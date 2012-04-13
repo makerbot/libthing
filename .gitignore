@@ -1,0 +1,3 @@
+#ignore object files
+cpp/src/*.o
+cpp/tests/src/*.o
