@@ -50,8 +50,9 @@ std::ostream& operator << (std::ostream &os, const libthing::LineSegment2 &s);
 
 bool collinear(const libthing::LineSegment2 &prev, const libthing::LineSegment2 &current, Scalar tol, Vector2 &mid);
 
+typedef std::vector< std::vector<libthing::LineSegment2 > > SegmentVector;
 
-}//end namespace mgl
+}//end namespace libthing
 
 #endif //LINESEGMENT_H_
 

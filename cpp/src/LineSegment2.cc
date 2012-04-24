@@ -3,6 +3,7 @@
 
 #include "Exception.h"
 
+
 using namespace libthing;
 using namespace std;
 
@@ -67,6 +68,12 @@ LineSegment2 LineSegment2::prelongate(const Scalar& dist)  const
 	return segment;
 }
 
+
+std::ostream& libthing::operator << (std::ostream &os, const LineSegment2 &s)
+{
+	//os << "[ " << s.a << ", " << s.b << "]";
+	return os;
+}
 
 //void dumpSegments(const char* prefix, const std::vector<LineSegment2> &segments)
 //{
