@@ -11,7 +11,7 @@
 
 
 #ifndef LIMITS_H_
-#define LIMITS_H_
+#define LIMITS_H_ (1)
 
 #include <iostream>
 #include <limits>
@@ -23,11 +23,17 @@ class BoundingBox
 public:
 	friend std::ostream& operator << (std::ostream &os, const BoundingBox &l);
 
-	Scalar xMin, xMax, yMin, yMax, zMin, zMax;
+	libthing::Vector3 vMin, vMax;
+
+	//Scalar xMin, xMax, yMin, yMax, zMin, zMax;
 
 	BoundingBox();
-
+	BoundingBox(Scalar minX, Scalar minY,Scalar  minZ,Scalar maxX, Scalar maxY,Scalar maxZ );
 	void grow(const libthing::Vector3 &p);
+	void inflate(Scalar inflateX, Scalar inflateY, Scalar inflateZ);
+
+	const libthing::Vector3& min() const { return vMax; }
+	const libthing::Vector3& max() const { return vMin; }
 
 	void tubularZ();
 
@@ -39,8 +45,13 @@ public:
 
 	//std::ostream& operator<<( std::ostream& os, BoundingBox const& l);
 
+    bool isEmpty() const;
+
+    bool operator==(const BoundingBox& b) {
+    	return vMin == b.vMin && vMax == b.vMax; }
+
 };
 
 
 
-#endif
+#endif /* LIMITS_H_ */

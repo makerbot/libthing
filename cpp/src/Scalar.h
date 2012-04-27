@@ -16,6 +16,9 @@ typedef double Scalar;
 // See float.h for details on these
 #define SCALAR_EPSILON DBL_EPSILON
 
+#define SCALAR_MAX std::numeric_limits<double>::max()
+#define SCALAR_MIN -SCALAR_MAX
+
 namespace libthing {
 /** (t)olerance (equals)
  * @returns true if two Scalar values are approximately the same using tolerance

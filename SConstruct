@@ -16,7 +16,8 @@ libthing_cc = [ CPPATH+'Scalar.cc',
 				CPPATH+"LineSegment2.cc",
 				CPPATH+"Mesh.cc",
 				CPPATH+'StlReader.cc',
-				CPPATH+'StlWriter.cc']
+				CPPATH+'StlWriter.cc',
+				CPPATH+'BoundingBox.cc']
 	
 print 'Building libthing.a'
 env.Library('./bin/thing', libthing_cc)

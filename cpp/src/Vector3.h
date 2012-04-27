@@ -22,6 +22,8 @@ public:
     void operator*=(const Scalar value);
     Vector3 operator*(const Scalar value) const;
 
+    bool operator==(const Vector3& v) { return x == v.x && y == v.y && z == v.z; }
+
     // Adds the given vector to this.
     void operator+=(const Vector3& v);
 

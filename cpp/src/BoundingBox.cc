@@ -8,67 +8,61 @@
    License, or (at your option) any later version.
 
 */
-
-
-#ifndef LIMITS_H_
-#define LIMITS_H_
-
-#include <iostream>
-#include <limits>
-#include "Scalar.h"
-#include "Vector3.h"
-
+#include "BoundingBox.h"
 
 using namespace libthing;
 
 
+// 1e20 used as min/max
+// A few kilometers larger than the build platform in 2012
+#define MAX_SANE_BUILD 1e20
 BoundingBox::BoundingBox()
+: vMin(-MAX_SANE_BUILD,-MAX_SANE_BUILD,MAX_SANE_BUILD),
+  vMax(MAX_SANE_BUILD,MAX_SANE_BUILD,MAX_SANE_BUILD)
 {
-	// Help: these don't not work under QT Windows.
-	// xMax = std::numeric_limits<Scalar>::min();
-	// xMin = std::numeric_limits<Scalar>::max();
-
-	Scalar large = 1e20; // using this instead. That's a few kilometers larger than the build platform in 2012
-
-	xMax = -large;
-	yMax = xMax;
-	zMax = xMax;
-
-	xMin = large;
-	yMin = xMin;
-	zMin = xMin;
-
 }
+
+BoundingBox::BoundingBox(Scalar minX, Scalar minY,Scalar  minZ,Scalar maxX, Scalar maxY,Scalar maxZ ):
+vMin(minX,minY,minZ),
+vMax(maxX,maxY,maxZ)
+{
+}
+
+
+
+
 /*
 BoundingBox::Limits(const Limits& kat)
 {
-	xMin = kat.xMin;
-	xMax = kat.xMax;
-	yMin = kat.yMin;
-	yMax = kat.yMax;
-	zMin = kat.zMin;
-	zMax = kat.zMax;
+	min.x = kat.min.x;
+	max.x = kat.max.x;
+	min.y= kat.min.y;
+	max.y = kat.max.y;
+	min.z = kat.min.z;
+	max.z = kat.max.z;
 }
 */
 void BoundingBox::grow(const Vector3 &p)
 {
-	if(p.x < xMin) xMin = p.x;
-	if(p.x > xMax) xMax = p.x;
-	if(p.y < yMin) yMin = p.y;
-	if(p.y > yMax) yMax = p.y;
-	if(p.z < zMin) zMin = p.z;
-	if(p.z > zMax) zMax = p.z;
+	vMin.x = std::min(vMin.x,p.x);
+	vMin.y = std::min(vMin.y,p.y);
+	vMin.z = std::min(vMin.z,p.z);
+
+	vMax.x = std::max(vMax.x,p.x);
+	vMax.y = std::max(vMax.y,p.y);
+	vMax.z = std::max(vMax.z,p.z);
 }
 
 // adds inflate to all sides (half of inflate in + and half inflate in - direction)
 void BoundingBox::inflate(Scalar inflateX, Scalar inflateY, Scalar inflateZ)
 {
-	xMin -= 0.5 * inflateX;
-	xMax += 0.5 * inflateX;
-	yMin -= 0.5 * inflateY;
-	yMax += 0.5 * inflateY;
-	zMin -= 0.5 * inflateZ;
-	zMax += 0.5 * inflateZ;
+	vMax.x += 0.5 * inflateX;
+	vMax.y += 0.5 * inflateY;
+	vMax.z += 0.5 * inflateZ;
+
+	vMin.x += 0.5 * -inflateX;
+	vMin.y += 0.5 * -inflateY;
+	vMin.z += 0.5 * -inflateZ;
 }
 
 // grows the limits to contain points that rotate along
@@ -76,8 +70,8 @@ void BoundingBox::inflate(Scalar inflateX, Scalar inflateY, Scalar inflateZ)
 void BoundingBox::tubularZ()
 {
 	Vector3 c = center();
-	Scalar dx = 0.5 * (xMax-xMin);
-	Scalar dy = 0.5 * (yMax - yMin);
+	Scalar dx = 0.5 * (vMax.x-vMin.x);
+	Scalar dy = 0.5 * (vMax.y- vMin.y);
 
 	Scalar radius = sqrt(dx*dx + dy*dy);
 
@@ -101,28 +95,33 @@ void BoundingBox::tubularZ()
 
 Vector3 BoundingBox::center() const
 {
-	Vector3 c(0.5 * (xMin + xMax), 0.5 * (yMin + yMax), 0.5 *(zMin + zMax) );
+	Vector3 c(0.5 * (vMin.x + vMax.x), 0.5 * (vMin.y+ vMax.y), 0.5 *(vMin.z + vMax.z) );
 	return c;
 }
 
 Scalar BoundingBox::deltaX() const
 {
-	return (xMax - xMin);
+	return (vMax.x - vMin.x);
 }
 
 Scalar BoundingBox::deltaY() const
 {
-	return (yMax - yMin);
+	return (vMax.y - vMin.y);
 }
 
 BoundingBox BoundingBox::centeredLimits() const
 {
 	BoundingBox out;
-	out.xMax = 0.5 * deltaX();
-	out.xMin = -out.xMax;
-	out.yMax = 0.5 * deltaY();
-	out.yMin = -out.yMax;
-	out.zMin = zMin;
-	out.zMax = zMax;
+	out.vMax.x = 0.5 * deltaX();
+	out.vMin.x = -out.vMax.x;
+	out.vMax.y = 0.5 * deltaY();
+	out.vMin.y = -out.vMax.y;
+	out.vMin.z = vMin.z;
+	out.vMax.z = vMax.z;
 	return out;
+}
+
+bool BoundingBox::isEmpty() const
+{
+    return BoundingBox() == *this;
 }
