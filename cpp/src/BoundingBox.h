@@ -43,12 +43,21 @@ public:
 
 	BoundingBox centeredLimits() const;
 
+	libthing::Vector3 center();
 	//std::ostream& operator<<( std::ostream& os, BoundingBox const& l);
 
     bool isEmpty() const;
 
     bool operator==(const BoundingBox& b) {
     	return vMin == b.vMin && vMax == b.vMax; }
+
+    Scalar xmin() const { return vMin.x; }
+    Scalar xmax() const { return vMax.x; }
+    Scalar ymin() const { return vMin.y; }
+    Scalar ymax() const { return vMax.y; }
+    Scalar zmin() const { return vMin.x; }
+    Scalar zmax() const { return vMax.x; }
+
 
 };
 

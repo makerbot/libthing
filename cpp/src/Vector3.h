@@ -34,6 +34,8 @@ public:
 
     Vector3 operator-(const Vector3& v) const;
 
+    Vector3 operator/(Scalar s) { return Vector3(x/s, y/s, z/s); }
+
     // Vector3 other matches this vector within tolerance tol
     bool tequals(const Vector3 &other, const Scalar tol) const;
 

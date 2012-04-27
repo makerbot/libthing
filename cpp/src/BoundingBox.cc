@@ -53,6 +53,12 @@ void BoundingBox::grow(const Vector3 &p)
 	vMax.z = std::max(vMax.z,p.z);
 }
 
+Vector3 BoundingBox::center()
+{
+	return vMin + vMax / 2.0;
+}
+
+
 // adds inflate to all sides (half of inflate in + and half inflate in - direction)
 void BoundingBox::inflate(Scalar inflateX, Scalar inflateY, Scalar inflateZ)
 {
