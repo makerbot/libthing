@@ -18,128 +18,28 @@
 #include "Scalar.h"
 #include "Vector3.h"
 
-
-namespace libthing
-{
-
 class BoundingBox
 {
 public:
-	friend ::std::ostream& operator << (::std::ostream &os, const BoundingBox &l);
+	friend std::ostream& operator << (std::ostream &os, const BoundingBox &l);
 
 	Scalar xMin, xMax, yMin, yMax, zMin, zMax;
 
-	BoundingBox()
-	{
-        // Help: these don't not work under QT Windows.
-        // xMax = std::numeric_limits<Scalar>::min();
-        // xMin = std::numeric_limits<Scalar>::max();
+	BoundingBox();
 
-        Scalar large = 1e20; // using this instead. That's a few kilometers larger than the build platform in 2012
+	void grow(const libthing::Vector3 &p);
 
-        xMax = -large;
-		yMax = xMax;
-		zMax = xMax;
+	void tubularZ();
 
-        xMin = large;
-		yMin = xMin;
-		zMin = xMin;
+	libthing::Vector3 center() const;
+	Scalar deltaX() const;
+	Scalar deltaY() const;
 
-	}
-/*
-	Limits(const Limits& kat)
-	{
-		xMin = kat.xMin;
-		xMax = kat.xMax;
-		yMin = kat.yMin;
-		yMax = kat.yMax;
-		zMin = kat.zMin;
-		zMax = kat.zMax;
-	}
-*/
-	void grow(const Vector3 &p)
-	{
-		if(p.x < xMin) xMin = p.x;
-		if(p.x > xMax) xMax = p.x;
-		if(p.y < yMin) yMin = p.y;
-		if(p.y > yMax) yMax = p.y;
-		if(p.z < zMin) zMin = p.z;
-		if(p.z > zMax) zMax = p.z;
-	}
+	BoundingBox centeredLimits() const;
 
-	// adds inflate to all sides (half of inflate in + and half inflate in - direction)
-	void inflate(Scalar inflateX, Scalar inflateY, Scalar inflateZ)
-	{
-		xMin -= 0.5 * inflateX;
-		xMax += 0.5 * inflateX;
-		yMin -= 0.5 * inflateY;
-		yMax += 0.5 * inflateY;
-		zMin -= 0.5 * inflateZ;
-		zMax += 0.5 * inflateZ;
-	}
+	//std::ostream& operator<<( std::ostream& os, BoundingBox const& l);
 
-	// grows the limits to contain points that rotate along
-	// the XY center point and Z axis
-	void tubularZ()
-	{
-		Vector3 c = center();
-		Scalar dx = 0.5 * (xMax-xMin);
-		Scalar dy = 0.5 * (yMax - yMin);
-
-		Scalar radius = sqrt(dx*dx + dy*dy);
-
-		Vector3 north = c;
-		north.y += radius;
-
-		Vector3 south = c;
-		south.y -= radius;
-
-		Vector3 east = c;
-		east.x += radius;
-
-		Vector3 west = c;
-		west.x -= radius;
-
-		grow(north);
-		grow(south);
-		grow(east);
-		grow(west);
-	}
-
-	Vector3 center() const
-	{
-		Vector3 c(0.5 * (xMin + xMax), 0.5 * (yMin + yMax), 0.5 *(zMin + zMax) );
-		return c;
-	}
-
-	Scalar deltaX() const
-	{
-		return (xMax - xMin);
-	}
-
-	Scalar deltaY() const
-	{
-		return (yMax - yMin);
-	}
-
-	BoundingBox centeredLimits() const
-	{
-		BoundingBox out;
-		out.xMax = 0.5 * deltaX();
-		out.xMin = -out.xMax;
-		out.yMax = 0.5 * deltaY();
-		out.yMin = -out.yMax;
-		out.zMin = zMin;
-		out.zMax = zMax;
-		return out;
-	}
 };
-
-::std::ostream& operator<<(::std::ostream& os, const BoundingBox& l);
-
-
-
-}
 
 
 

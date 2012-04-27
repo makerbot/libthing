@@ -1,6 +1,12 @@
 import commands
-CPPATH = 'cpp/src/'
+
 env = Environment( )
+
+CPPATH = 'cpp/src/'
+
+#For json-cpp we expect it to be 'next door' at the same level
+
+JSON_CPP_PATH = '../json-cpp'
 
 
 libthing_cc = [ CPPATH+'Scalar.cc',
@@ -16,7 +22,8 @@ print 'Building libthing.a'
 env.Library('./bin/thing', libthing_cc)
 
 default_libs = ['thing',]
-default_libs_path = ['./bin','/usr/lib', '/usr/local/lib', './bin/lib', '/opt/local/lib']
+default_libs_path = ['./bin','/usr/lib', '/usr/local/lib',
+					 './bin/lib', '/opt/local/lib']
 
 
 print 'testing cppunit settings'
