@@ -2,7 +2,7 @@
 #include <limits>
 #include <algorithm>
 
-using namespace libthing;
+#include "Vector3.h"
 
 
 BoundingBox::BoundingBox() : innerBox()
@@ -11,7 +11,7 @@ BoundingBox::BoundingBox() : innerBox()
 
 
 BoundingBox::BoundingBox(const QVector3D vMin, const QVector3D vMax) :
-innerBox(vMin.x,vMin.y,vMin.z .vMax.x,vMax.y,vMax.z)
+    innerBox(vMin.x(),vMin.y(),vMin.z(), vMax.x(),vMax.y(),vMax.z())
 {}
 
 
@@ -19,7 +19,7 @@ innerBox(vMin.x,vMin.y,vMin.z .vMax.x,vMax.y,vMax.z)
 
 
 void BoundingBox::addPoint(const QVector3D p) {
-	innerBox.grow( Vector3(p.x(), p.y(), p.z()) );
+        innerBox.grow( libthing::Vector3(p.x(), p.y(), p.z()) );
 }
 
 BoundingBox& BoundingBox::operator+=(const QVector3D& p)
@@ -37,7 +37,7 @@ BoundingBox& BoundingBox::operator+=(const BoundingBox& b) {
 
 QVector3D BoundingBox::center() const
 {
-	Vector3 v = innerBox::center();
+    libthing::Vector3 v = innerBox.center();
     return QVector3D(v.x, v.y, v.z);
 }
 

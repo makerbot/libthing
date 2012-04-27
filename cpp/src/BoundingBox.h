@@ -50,7 +50,7 @@ public:
 
     bool isEmpty() const;
 
-    bool operator==(const BoundingBox& b) {
+    bool operator==(const BoundingBox& b) const {
     	return vMin == b.vMin && vMax == b.vMax; }
 
     Scalar xmin() const { return vMin.x; }

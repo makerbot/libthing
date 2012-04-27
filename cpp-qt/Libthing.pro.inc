@@ -16,7 +16,9 @@ INCLUDEPATH += $$LIBTHING_BASE/qt-cpp/src
 INCLUDEPATH += $$LIBTHING_BASE/../cpp/src
 
 
-#SOURCES +=  $$JSON_CPP_SRC/src/lib_json/json_reader.cpp\
+SOURCES +=  $$LIBTHING_BASE/../cpp/src/Vector3.cc\
+    $$LIBTHING_BASE/../cpp/src/BoundingBox.cc\
+    $$LIBTHING_BASE/../cpp/src/Scalar.cc
 
 #HEADERS  +=$$JSON_CPP_SRC/include/json/assertions.h \
 
