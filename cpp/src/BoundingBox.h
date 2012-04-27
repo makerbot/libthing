@@ -18,6 +18,8 @@
 #include "Scalar.h"
 #include "Vector3.h"
 
+namespace libthing {
+
 class BoundingBox
 {
 public:
@@ -62,5 +64,6 @@ public:
 };
 
 
+} //end namespace libthing
 
 #endif /* LIMITS_H_ */

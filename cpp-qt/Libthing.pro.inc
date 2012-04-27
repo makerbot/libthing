@@ -11,7 +11,10 @@
 # is :
 #LIBTHING_BASE = submodule/json-cpp
 
+
 INCLUDEPATH += $$LIBTHING_BASE/qt-cpp/src
+INCLUDEPATH += $$LIBTHING_BASE/../cpp/src
+
 
 #SOURCES +=  $$JSON_CPP_SRC/src/lib_json/json_reader.cpp\
 
