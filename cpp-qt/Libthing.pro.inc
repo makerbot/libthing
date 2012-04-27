@@ -1,0 +1,19 @@
+#-------------------------------------------------
+#
+# QtCreator project include file
+#
+# File is/was manually maintained for QT inclusion/use
+#
+#-------------------------------------------------
+
+#JSON_CPP_SRC must be specified by parent calling
+# .pro file for this to work properly. The default value
+# is :
+#LIBTHING_BASE = submodule/json-cpp
+
+INCLUDEPATH += $$LIBTHING_BASE/qt-cpp/src
+
+#SOURCES +=  $$JSON_CPP_SRC/src/lib_json/json_reader.cpp\
+
+#HEADERS  +=$$JSON_CPP_SRC/include/json/assertions.h \
+
