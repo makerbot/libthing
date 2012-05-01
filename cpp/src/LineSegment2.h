@@ -45,6 +45,7 @@ public:
 /// A SegmentTable may contain, for example, a perimeter
 /// and hole(s) in that perimeter of a slice.
 typedef std::vector< std::vector<libthing::LineSegment2 > > SegmentTable;
+typedef std::vector<SegmentTable> Insets;
 
 std::ostream& operator << (std::ostream &os, const libthing::LineSegment2 &s);
 
