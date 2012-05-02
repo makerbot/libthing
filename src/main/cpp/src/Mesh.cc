@@ -30,6 +30,10 @@ const BoundingBox& Mesh::readLimits() const
 void Mesh::addTriangle(Triangle3 const& t)
 {
 	allTriangles.push_back(t);
+	boundingBox.grow(t[0]);
+	boundingBox.grow(t[1]);
+	boundingBox.grow(t[2]);
+
 }
 
 
