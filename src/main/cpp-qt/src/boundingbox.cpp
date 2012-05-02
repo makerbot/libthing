@@ -5,8 +5,15 @@
 #include "Vector3.h"
 
 
-BoundingBox::BoundingBox() : innerBox()
+BoundingBox::BoundingBox() :
+innerBox(-MAX_SANE_BUILD,-MAX_SANE_BUILD,MAX_SANE_BUILD,
+			MAX_SANE_BUILD,MAX_SANE_BUILD,MAX_SANE_BUILD)
 {
+//TRICKY:
+// qt-style bounding box defaults to building a 'max sane'
+// bounding box if unspecified. core cpp-libthing bounding boxes default
+// to 0,0,0 sized bounding box.
+
 }
 
 

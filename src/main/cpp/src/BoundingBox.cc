@@ -16,11 +16,7 @@ using namespace libthing;
 // 1e20 used as min/max
 // A few kilometers larger than the build platform in 2012
 #define MAX_SANE_BUILD 1e20
-BoundingBox::BoundingBox()
-: vMin(-MAX_SANE_BUILD,-MAX_SANE_BUILD,MAX_SANE_BUILD),
-  vMax(MAX_SANE_BUILD,MAX_SANE_BUILD,MAX_SANE_BUILD)
-{
-}
+
 
 BoundingBox::BoundingBox(Scalar minX, Scalar minY,Scalar  minZ,Scalar maxX, Scalar maxY,Scalar maxZ ):
 vMin(minX,minY,minZ),
