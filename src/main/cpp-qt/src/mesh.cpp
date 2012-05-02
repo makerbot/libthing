@@ -63,12 +63,12 @@ void VertexNormalTriangleMesh::addTri(const VertexNormalTriangle &tri)
     m_bounds.addPoint(tri.p[2]);
 }
 
-Mesh::~Mesh()
+SmartMesh::~Mesh()
 {
     glDeleteLists(m_displayList,1);
 }
 
-void Mesh::displayListRenderGL()
+void SmartMesh::displayListRenderGL()
 {
     if (m_displayList == 0) {
         m_displayList = glGenLists(1);

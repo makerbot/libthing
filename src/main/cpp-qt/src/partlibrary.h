@@ -13,13 +13,13 @@
 
 class PartLibrary {
 private:
-    static QMap<QString,QSharedPointer<Mesh> > m_parts;
+    static QMap<QString,QSharedPointer<SmartMesh> > m_parts;
 public:
-    static QSharedPointer<Mesh> getMesh(const QString filename);
-    static void addMesh(const QString name, QSharedPointer<Mesh> mesh);
-    static void addMesh(const QString name, Mesh* mesh);
+    static QSharedPointer<SmartMesh> getMesh(const QString filename);
+    static void addMesh(const QString name, QSharedPointer<SmartMesh> mesh);
+    static void addMesh(const QString name, SmartMesh* mesh);
     static const QString addFile(const QString path);
-    static QString getOriginFile(const Mesh& mesh);
+    static QString getOriginFile(const SmartMesh& mesh);
 };
 
 

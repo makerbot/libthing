@@ -11,7 +11,7 @@
 using namespace std;
 using namespace libthing;
 
-size_t StlReader::meshFromStlFile(Mesh &mesh, char const *filename)
+size_t StlReader::meshFromStlFile(SmartMesh &mesh, char const *filename)
 {
 	size_t facecount = 0;
 

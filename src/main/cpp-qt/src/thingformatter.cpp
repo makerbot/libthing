@@ -37,12 +37,12 @@ Json::Value xformToJson(const QMatrix4x4& xform) {
     return matrix;
 }
 
-Mesh* ThingFormatter::readMesh(QFile &inf)
+SmartMesh* ThingFormatter::readMesh(QFile &inf)
 {
     throw -1;
 }
 
-void ThingFormatter::writeMesh(QFile& outf, const Mesh& mesh)
+void ThingFormatter::writeMesh(QFile& outf, const SmartMesh& mesh)
 {
     throw -1;
 }

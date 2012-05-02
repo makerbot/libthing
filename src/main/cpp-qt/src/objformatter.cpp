@@ -5,7 +5,7 @@
 #include <QList>
 #include <QTextStream>
 
-Mesh* ObjFormatter::readMesh(QFile& inf) {
+SmartMesh* ObjFormatter::readMesh(QFile& inf) {
     QList<QVector3D> vertexList;
     QList<QVector3D> normalList;
     const static int MAX_LINE = 4096;
@@ -75,7 +75,7 @@ Mesh* ObjFormatter::readMesh(QFile& inf) {
     return mesh;
 }
 
-void ObjFormatter::writeMesh(QFile& outf, const Mesh& mesh) {
+void ObjFormatter::writeMesh(QFile& outf, const SmartMesh& mesh) {
     throw -1;
 }
 void ObjFormatter::writeMesh(QFile& outf, const SceneNode& node) {

@@ -15,7 +15,7 @@ static QVector3D readVertex(QDataStream& in) {
     return QVector3D(x,y,z);
 }
 
-Mesh* BinaryStlFormatter::readMesh(QFile& inf) {
+SmartMesh* BinaryStlFormatter::readMesh(QFile& inf) {
     FaceNormalTriangleMesh* mesh = new FaceNormalTriangleMesh();
     QDataStream in(&inf);
     char comment[81];
@@ -49,7 +49,7 @@ Mesh* BinaryStlFormatter::readMesh(QFile& inf) {
     return mesh;
 }
 
-void BinaryStlFormatter::writeMesh(QFile& out, const Mesh& mesh) {
+void BinaryStlFormatter::writeMesh(QFile& out, const SmartMesh& mesh) {
     throw -1;
 }
 

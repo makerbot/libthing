@@ -10,12 +10,11 @@ using namespace std;
 
 //#include "log.h"
 
+Mesh::Mesh()
+{
+	// this space intentionally left blank
+}
 
-
-	/// requires firstLayerSlice height, and general layer height
-Mesh::Mesh(Scalar const firstSliceZ, Scalar const layerH)
-		:zTapeMeasure(firstSliceZ, layerH)
-	{ 	}
 
 const std::vector<Triangle3>& Mesh::readAllTriangles() const
 {
@@ -27,21 +26,44 @@ const BoundingBox& Mesh::readLimits() const
 	return boundingBox;
 }
 
-const LayerMeasure& Mesh::readLayerMeasure() const
+
+void Mesh::addTriangle(Triangle3 const& t)
+{
+	allTriangles.push_back(t);
+}
+
+
+
+size_t Mesh::triangleCount() {
+	return allTriangles.size();
+   //Log::often() << "all triangle count" << allTriangles.size();
+}
+
+
+
+
+	/// requires firstLayerSlice height, and general layer height
+SmartMesh::SmartMesh(Scalar const firstSliceZ, Scalar const layerH)
+		:Mesh(), zTapeMeasure(firstSliceZ, layerH)
+{
+	// this space intentionally left blank
+}
+
+
+const LayerMeasure& SmartMesh::readLayerMeasure() const
 {
 	return zTapeMeasure;
 }
 
-const SliceTable& Mesh::readSliceTable() const
+const SliceTable& SmartMesh::readSliceTable() const
 {
 	return sliceTable;
 }
 
-
 //
 // Adds a triangle to the global array and for each slice of interest
 //
-void Mesh::addTriangle(Triangle3 const& t)
+void SmartMesh::addTriangle(Triangle3 const& t)
 {
 
 	Vector3 a, b, c;
@@ -57,6 +79,7 @@ void Mesh::addTriangle(Triangle3 const& t)
 
 //		Log::often() << "Min max index = [" <<  minSliceIndex << ", "<< maxSliceIndex << "]"<< std::endl;
 //		Log::often() << "Max index =" <<  maxSliceIndex << std::endl;
+
 	unsigned int currentSliceCount = sliceTable.size();
 	if (maxSliceIndex >= currentSliceCount)
 	{
@@ -85,7 +108,8 @@ void Mesh::addTriangle(Triangle3 const& t)
 }
 
 
-void Mesh::dump(std::ostream &out)
+
+void SmartMesh::dump(std::ostream &out)
 {
 	//out << "dumping " << this << std::endl;
 	//out << "Nb of triangles: " << allTriangles.size() << std::endl;
@@ -102,9 +126,4 @@ void Mesh::dump(std::ostream &out)
 }
 
 
-
-size_t Mesh::triangleCount() {
-	return allTriangles.size();
-   //Log::often() << "all triangle count" << allTriangles.size();
-}
 

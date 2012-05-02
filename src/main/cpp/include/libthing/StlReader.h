@@ -34,7 +34,7 @@ class StlReader
 	} intdata;
 
 	//// Read a meshin
-	size_t meshFromStlFile(Mesh &mesh, char const *filename);
+	size_t meshFromStlFile(SmartMesh &mesh, char const *filename);
 };
 
 

@@ -11,7 +11,7 @@
 
 
 #ifndef MESHY_H_
-#define MESHY_H_
+#define MESHY_H_ (1)
 
 #include <iomanip>
 #include <set>
@@ -35,41 +35,48 @@ typedef std::vector<index_t> TriangleIndices;
 /// A list of triangle indexes indicating a slice
 typedef std::vector<TriangleIndices> SliceTable;
 
-/**
- *
- * A Mesh class
- */
-class Mesh
-{
+class Mesh {
 
+protected:
 	BoundingBox boundingBox; 	/// Bounding box for the model
 	std::vector<Triangle3>  allTriangles; /// every triangle in the model.
 	/// for each slice, a list of indicies, each index is a lookup into vector
 	// allTriangles
-	LayerMeasure zTapeMeasure;
-	SliceTable sliceTable;
 
 public:
-
-
-	/// requires firstLayerSlice height, and general layer height
-	Mesh(Scalar const firstSliceZ, Scalar const layerH);
+	Mesh();
 	const std::vector<Triangle3> &readAllTriangles() const;
 	const BoundingBox& readLimits() const;
-	const LayerMeasure& readLayerMeasure() const;
-	const SliceTable &readSliceTable() const;
 
 	//
 	// Adds a triangle to the global array and for each slice of interest
 	//
 	void addTriangle(Triangle3 const& t);
 
+	size_t triangleCount();
+};
 
-	void dump(std::ostream &out);
+/**
+ *
+ * A Mesh class
+ */
+class SmartMesh : public Mesh
+{
+protected:
+	LayerMeasure zTapeMeasure;
+	SliceTable sliceTable;
 
 public:
 
-	size_t triangleCount();
+	/// requires firstLayerSlice height, and general layer height
+	SmartMesh(Scalar const firstSliceZ, Scalar const layerH);
+	const LayerMeasure& readLayerMeasure() const;
+	const SliceTable &readSliceTable() const;
+
+	void addTriangle(Triangle3 const& t);
+
+	void dump(std::ostream &out);
+
 };
 
 } // end namespace

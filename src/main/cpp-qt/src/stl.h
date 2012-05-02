@@ -6,15 +6,15 @@
 
 class AsciiStlFormatter : public Formatter {
 public:
-  Mesh* readMesh(QFile& inf);
-  void writeMesh(QFile& outf, const Mesh& mesh);
+  SmartMesh* readMesh(QFile& inf);
+  void writeMesh(QFile& outf, const SmartMesh& mesh);
   void writeMesh(QFile& outf, const SceneNode& node);
 };
 
 class BinaryStlFormatter : public Formatter {
 public:
-  Mesh* readMesh(QFile& inf);
-  void writeMesh(QFile& outf, const Mesh& mesh);
+  SmartMesh* readMesh(QFile& inf);
+  void writeMesh(QFile& outf, const SmartMesh& mesh);
   void writeMesh(QFile& outf, const SceneNode& node);
 };
 
