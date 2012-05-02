@@ -26,33 +26,30 @@
 namespace libthing // serious about triangles
 {
 
-/// typdef to indicate index behavior/use of unsigned int
-typedef unsigned int index_t;
-
 /// triangle index list
 typedef std::vector<index_t> TriangleIndices;
 
 /// A list of triangle indexes indicating a slice
 typedef std::vector<TriangleIndices> SliceTable;
 
+
 class Mesh {
 
 protected:
 	BoundingBox boundingBox; 	/// Bounding box for the model
 	std::vector<Triangle3>  allTriangles; /// every triangle in the model.
-	/// for each slice, a list of indicies, each index is a lookup into vector
-	// allTriangles
+
 
 public:
 	Mesh();
+public:
 	const std::vector<Triangle3> &readAllTriangles() const;
 	const BoundingBox& readLimits() const;
 
-	//
-	// Adds a triangle to the global array and for each slice of interest
-	//
+	/// Adds a triangle to the global array and for each slice of interest
 	void addTriangle(Triangle3 const& t);
 
+	/// get the count of all triangles in this mesh
 	size_t triangleCount();
 };
 
@@ -64,6 +61,9 @@ class SmartMesh : public Mesh
 {
 protected:
 	LayerMeasure zTapeMeasure;
+
+	/// for each slice, a list of indicies, each index is a lookup into vector
+	// allTriangles
 	SliceTable sliceTable;
 
 public:

@@ -29,8 +29,8 @@ public:
 
 	//Scalar xMin, xMax, yMin, yMax, zMin, zMax;
 
-	BoundingBox();
-	BoundingBox(Scalar minX, Scalar minY,Scalar  minZ,Scalar maxX, Scalar maxY,Scalar maxZ );
+	BoundingBox(Scalar minX = 0.0, Scalar minY = 0.0, Scalar  minZ = 0.0,
+				Scalar maxX = 0.0, Scalar maxY = 0.0, Scalar maxZ  = 0.0);
 	void grow(const libthing::Vector3 &p);
 	void inflate(Scalar inflateX, Scalar inflateY, Scalar inflateZ);
 

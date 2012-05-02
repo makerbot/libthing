@@ -25,4 +25,9 @@ namespace libthing {
  */
 	bool tequals(Scalar const& a, Scalar const& b, Scalar const& tol);
 }
+
+/// typdef to indicate index behavior/use of unsigned int
+typedef unsigned int index_t;
+
+
 #endif /*SCALAR_H_ */

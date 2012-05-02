@@ -1,3 +1,7 @@
 #ignore object files
-cpp/src/*.o
-cpp/tests/src/*.o
+src/main/cpp/src/*.o
+src/test/cpp/*.o
+
+#ignore ouput bin directory
+bin/*
+Debug/*

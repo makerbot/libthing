@@ -59,3 +59,9 @@ p = env.Program('./bin/unit_tests/libThingCoreUnitTest',
 	LIBPATH= default_libs_path + debug_libs_path,
 	CPPPATH=[CPPINCLUDE,'./'])
 
+env2 = Environment( )
+p = env2.Program('./bin/unit_tests/libThingMeshUnitTest',
+	(TEST_CPPATH +'/MeshUnitTest.cc',TEST_CPPATH +'UnitTestMain.cc'),
+	LIBS = default_libs + debug_libs,
+	LIBPATH= default_libs_path + debug_libs_path,
+	CPPPATH=[CPPINCLUDE,'./'])
