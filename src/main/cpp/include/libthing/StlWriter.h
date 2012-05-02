@@ -9,7 +9,7 @@
 #include <set>
 #include <fstream>
 
-#include "Triangle3.h"
+#include "libthing/Triangle3.h"
 
 namespace libthing {
 // simple class that writes

@@ -1,4 +1,4 @@
-#include "Scalar.h"
+#include "libthing/Scalar.h"
 
 namespace libthing {
 

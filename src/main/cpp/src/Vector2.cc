@@ -1,6 +1,6 @@
 #include <cassert>
 
-#include "Vector2.h"
+#include "libthing/Vector2.h"
 
 #ifdef WIN32 
 

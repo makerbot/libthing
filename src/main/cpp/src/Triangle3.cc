@@ -1,5 +1,5 @@
-#include "Triangle3.h"
-#include "Scalar.h"
+#include "libthing/Triangle3.h"
+#include "libthing/Scalar.h"
 
 using namespace libthing;
 using namespace std;

@@ -8,7 +8,7 @@
    License, or (at your option) any later version.
 
 */
-#include "BoundingBox.h"
+#include "libthing/BoundingBox.h"
 
 using namespace libthing;
 

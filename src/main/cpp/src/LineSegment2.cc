@@ -1,7 +1,6 @@
-#include "Vector2.h"
-#include "LineSegment2.h"
-
-#include "Exception.h"
+#include "libthing/Vector2.h"
+#include "libthing/LineSegment2.h"
+#include "libthing/Exception.h"
 
 
 using namespace libthing;

@@ -2,12 +2,15 @@ import commands
 
 env = Environment( )
 
-CPPATH = 'cpp/src/'
 
+CPPATH = 'src/main/cpp/src/'
+CPPINCLUDE = 'src/main/cpp/include/'
 #For json-cpp we expect it to be 'next door' at the same level
 
 JSON_CPP_PATH = '../json-cpp'
 
+
+print 'Building libthing.a'
 
 libthing_cc = [ CPPATH+'Scalar.cc',
 				CPPATH+'Vector2.cc', 
@@ -18,9 +21,11 @@ libthing_cc = [ CPPATH+'Scalar.cc',
 				CPPATH+'StlReader.cc',
 				CPPATH+'StlWriter.cc',
 				CPPATH+'BoundingBox.cc']
-	
-print 'Building libthing.a'
-env.Library('./bin/thing', libthing_cc)
+
+env.Append(CPPPATH = [CPPINCLUDE,])
+
+
+env.Library('./bin/thing', libthing_cc, )
 
 default_libs = ['thing',]
 default_libs_path = ['./bin','/usr/lib', '/usr/local/lib',
@@ -39,11 +44,18 @@ if operating_system.find("_NT") > 0:
 if operating_system == "Darwin":
     print " ** CPPUNIT version checK:", commands.getoutput("port info --line cppunit | grep ^cppunit")
 
+
+
+print 'Building Test Functions for libthing '
+
+TEST_CPPATH= 'src/test/cpp/'
+
 debug_libs=['cppunit',]
 debug_libs_path=['bin',]
+
 p = env.Program('./bin/unit_tests/libThingCoreUnitTest',
-	('cpp/tests/src/libThingCoreUnitTest.cc','cpp/tests/src/UnitTestMain.cc'),
+	(TEST_CPPATH +'/libThingCoreUnitTest.cc',TEST_CPPATH +'UnitTestMain.cc'),
 	LIBS = default_libs + debug_libs,
 	LIBPATH= default_libs_path + debug_libs_path,
-	CPPPATH=['./'])
+	CPPPATH=[CPPINCLUDE,'./'])
 

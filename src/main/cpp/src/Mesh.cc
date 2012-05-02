@@ -1,6 +1,5 @@
 
-#include "Mesh.h"
-//#include "mgl.h"
+#include "libthing/Mesh.h"
 
 #include<iostream>
 #include<stdint.h>

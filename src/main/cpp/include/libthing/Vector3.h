@@ -1,8 +1,8 @@
 #ifndef VECTOR3_H_
 #define VECTOR3_H_ (1)
 
-#include "Scalar.h"
-#include "Exception.h"
+#include "libthing/Scalar.h"
+#include "libthing/Exception.h"
 
 namespace libthing {
 /// your basic XYZ vector table

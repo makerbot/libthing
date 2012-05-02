@@ -2,8 +2,8 @@
 #ifndef _STL_READER_H_
 #define _STL_READER_H_ (1)
 
-#include "Mesh.h"
-#include "PlatformTools.h"
+#include "libthing/Mesh.h"
+#include "libthing/PlatformTools.h"
 
 namespace libthing {
 

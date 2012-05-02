@@ -4,8 +4,8 @@
 
 #include <cmath>
 
-#include "Scalar.h"
-#include "Exception.h"
+#include "libthing/Scalar.h"
+#include "libthing/Exception.h"
 
 namespace libthing
 {

@@ -1,6 +1,6 @@
 
-#include "StlReader.h"
-#include "PlatformTools.h"
+#include "libthing/StlReader.h"
+#include "libthing/PlatformTools.h"
 
 #include <cmath>
 #include <vector>

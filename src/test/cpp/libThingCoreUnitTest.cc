@@ -8,14 +8,12 @@
 #include "libThingCoreUnitTest.h"
 
 
-#include "cpp/src/PlatformTools.h"
-#include "cpp/src/Exception.h"
-#include "cpp/src/Scalar.h"
-#include "cpp/src/Vector2.h"
-#include "cpp/src/LineSegment2.h"
-#include "cpp/src/Vector3.h"
-//#include "mgl/configuration.h"
-//#include "mgl/gcoder.h"
+#include "libthing/PlatformTools.h"
+#include "libthing/Exception.h"
+#include "libthing/Scalar.h"
+#include "libthing/Vector2.h"
+#include "libthing/LineSegment2.h"
+#include "libthing/Vector3.h"
 
 using namespace std;
 using namespace libthing;
