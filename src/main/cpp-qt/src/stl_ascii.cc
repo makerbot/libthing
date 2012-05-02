@@ -37,7 +37,7 @@ static void readTriangle(QTextStream& in, FaceNormalTriangleMesh& mesh) {
 
 #define MAX_LINE 80
 
-SmartMesh* AsciiStlFormatter::readMesh(QFile& inf) {
+Mesh* AsciiStlFormatter::readMesh(QFile& inf) {
     FaceNormalTriangleMesh* mesh = new FaceNormalTriangleMesh();
     QTextStream in(&inf);
     QString lineStr = in.readLine(MAX_LINE);
@@ -82,7 +82,7 @@ static void writeTransformedTriangle(QTextStream& out, const Triangle& tri, cons
 }
 
 // writes out a single, untransformed mesh
-void AsciiStlFormatter::writeMesh(QFile& outf, const SmartMesh& mesh) {
+void AsciiStlFormatter::writeMesh(QFile& outf, const Mesh& mesh) {
 
     const FaceNormalTriangleMesh* fntMesh = dynamic_cast<const FaceNormalTriangleMesh*>(&mesh);
     const VertexNormalTriangleMesh* vntMesh = dynamic_cast<const VertexNormalTriangleMesh*>(&mesh);

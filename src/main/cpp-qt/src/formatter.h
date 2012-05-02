@@ -13,8 +13,8 @@ class FormatterFactory;
 
 class Formatter {
 public:
-    virtual SmartMesh* readMesh(QFile& inf) =0;
-    virtual void writeMesh(QFile& outf, const SmartMesh& mesh) =0;
+    virtual Mesh* readMesh(QFile& inf) =0;
+    virtual void writeMesh(QFile& outf, const Mesh& mesh) =0;
     virtual void writeMesh(QFile& outf, const SceneNode& node) =0;
     static FormatterFactory& getFactory();
 };

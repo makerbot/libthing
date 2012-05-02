@@ -5,22 +5,22 @@
 #include "formatter.h"
 #include <QtDebug>
 
-QMap<QString,QSharedPointer<SmartMesh> > PartLibrary::m_parts;
+QMap<QString,QSharedPointer<Mesh> > PartLibrary::m_parts;
 
-QSharedPointer<SmartMesh> PartLibrary::getMesh(const QString filename)
+QSharedPointer<Mesh> PartLibrary::getMesh(const QString filename)
 {
     if(!m_parts.contains(filename))
         addFile(filename);
     return m_parts[filename];
 }
 
-void PartLibrary::addMesh(const QString name, QSharedPointer<SmartMesh> mesh) {
+void PartLibrary::addMesh(const QString name, QSharedPointer<Mesh> mesh) {
     // Check for naming conflicts...
     m_parts[name] = mesh;
 }
 
-void PartLibrary::addMesh(const QString name, SmartMesh* mesh) {
-    QSharedPointer<SmartMesh> p(mesh);
+void PartLibrary::addMesh(const QString name, Mesh* mesh) {
+    QSharedPointer<Mesh> p(mesh);
     addMesh(name,p);
 }
 
@@ -29,7 +29,7 @@ const QString PartLibrary::addFile(const QString path) {
     const QString absPath = fi.absoluteFilePath();
     QList<Formatter*> candidates = Formatter::getFactory().getFormatters(fi);
     QListIterator<Formatter*> i(candidates);
-    SmartMesh* m = NULL;
+    Mesh* m = NULL;
     while (i.hasNext()) {
         try {
             QFile f(path);

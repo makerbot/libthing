@@ -7,7 +7,7 @@
 class ThingFormatter : public Formatter
 {
 public:
-    SmartMesh* readMesh(QFile& inf);
+    Mesh* readMesh(QFile& inf);
     void writeMesh(QFile& outf, const SmartMesh& mesh);
     void writeMesh(QFile& outf, const SceneNode& node);
 };
