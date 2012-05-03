@@ -47,6 +47,9 @@ public:
 	void setName(std::string newName) { meshName = newName;};
 	void setComment(std::string newComment) { meshComment = newComment;};
 
+	std::string const getName() const { return meshName;} ;
+	std::string const getComment() const { return meshComment;} ;
+
 public:
 	const std::vector<Triangle3> &readAllTriangles() const;
 	const BoundingBox& readLimits() const;

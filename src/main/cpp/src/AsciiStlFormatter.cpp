@@ -53,8 +53,6 @@ static string readHeader(std::istream& in) {
 }
 
 
-
-
 static void readTriangle(istream& in, FaceNormalTriangleMesh& mesh) {
     Vector3 v0,v1,v2,n0;
 
@@ -139,7 +137,7 @@ void AsciiStlFormatter::writeMesh(ostream& out, const Mesh& mesh) {
     const VertexNormalTriangleMesh* vntMesh = dynamic_cast<const VertexNormalTriangleMesh*>(&mesh);
 
 
-    out << "solid " << "solidname";
+    out << "solid " << mesh.getComment() << endl;
 
     if(fntMesh != 0){
     	const std::vector<FaceNormTriangle3>& tris = fntMesh->readAllTriangles();
@@ -156,7 +154,7 @@ void AsciiStlFormatter::writeMesh(ostream& out, const Mesh& mesh) {
     else // We should have better failure behavior here.
         throw -1;
 
-    out << "endsolid " << "solidname";
+    out << "endsolid " << mesh.getComment() << endl;
 }
 
 

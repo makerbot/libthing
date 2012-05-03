@@ -68,3 +68,10 @@ p = env2.Program('./bin/unit_tests/libThingMeshUnitTest',
 	LIBS = default_libs + debug_libs,
 	LIBPATH= default_libs_path + debug_libs_path,
 	CPPPATH=[CPPINCLUDE,'./'])
+
+env2 = Environment( )
+p = env2.Program('./bin/unit_tests/ModelReaderhUnitTest',
+	(TEST_CPPATH +'/ModelReaderTestCase.cc',TEST_CPPATH +'UnitTestMain.cc'),
+	LIBS = default_libs + debug_libs,
+	LIBPATH= default_libs_path + debug_libs_path,
+	CPPPATH=[TEST_CPPATH, CPPINCLUDE,'./'])
