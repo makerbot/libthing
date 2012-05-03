@@ -41,6 +41,34 @@ void Mesh::addTriangle(Triangle3 const& t)
 
 }
 
+void FaceNormalTriangleMesh::addTriangle(Triangle3 const& t)
+{
+	throw -1;
+}
+
+void FaceNormalTriangleMesh::addTriangle(FaceNormTriangle3 const& t)
+{
+	allFaceNormTriangles.push_back(t);
+	boundingBox.grow(t[0]);
+	boundingBox.grow(t[1]);
+	boundingBox.grow(t[2]);
+
+}
+
+void VertexNormalTriangleMesh::addTriangle(Triangle3 const& t)
+{
+	throw -1;
+}
+
+void VertexNormalTriangleMesh::addTriangle(VertexNormTriangle3 const& t)
+{
+	allVertexNormTriangles.push_back(t);
+	boundingBox.grow(t[0]);
+	boundingBox.grow(t[1]);
+	boundingBox.grow(t[2]);
+
+}
+
 
 
 size_t Mesh::triangleCount() {

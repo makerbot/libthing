@@ -4,6 +4,7 @@
 using namespace libthing;
 using namespace std;
 
+
 Triangle3::Triangle3(const Vector3& v0, const Vector3& v1, const Vector3& v2)
 :v0(v0),v1(v1),v2(v2)
 {
@@ -18,6 +19,7 @@ Triangle3::Triangle3(const Vector3& v0, const Vector3& v1, const Vector3& v2)
 	if(offsetDir.squaredMagnitude() >0 )
 		offsetDir.normalise();
 }
+
 
 // slices this triangle into a segment that
 // flows from a to b (using the STL convention).
@@ -36,6 +38,7 @@ bool Triangle3::cut(Scalar z, Vector3 &a, Vector3 &b) const
 	}
 	return success;
 }
+
 
 // accessor for the points
 Vector3& Triangle3::operator[](unsigned int i)
@@ -301,3 +304,25 @@ bool Triangle3::sliceTriangle(Scalar& Z, Vector3 &a, Vector3 &b) const
 	return false;
 }
 
+
+
+VertexNormTriangle3::VertexNormTriangle3(
+		const Vector3& v0, const Vector3& v1, const Vector3& v2,
+		const Vector3& n0, const Vector3& n1, const Vector3& n2):
+		Triangle3(v0,v1,v2),n0(n0), n1(n1), n2(n2)
+{
+	/// this space intentionally left blank
+}
+
+
+FaceNormTriangle3::FaceNormTriangle3(
+		const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector3& f0):
+		Triangle3(v0,v1,v2),f0(f0)
+{
+	/// this space intentionally left blank
+}
+
+Vector3  FaceNormTriangle3::normal() const
+{
+	return f0;
+}

@@ -20,10 +20,13 @@ libthing_cc = [ CPPATH+'Scalar.cc',
 				CPPATH+"Mesh.cc",
 				CPPATH+'StlReader.cc',
 				CPPATH+'StlWriter.cc',
-				CPPATH+'BoundingBox.cc']
+				CPPATH+'BoundingBox.cc',
+				CPPATH+'Formatter.cpp',
+				CPPATH+'AsciiStlFormatter.cpp',]
+#				//CPPATH+'BinaryAsciiFormatter.cpp']
+
 
 env.Append(CPPPATH = [CPPINCLUDE,])
-
 
 env.Library('./bin/thing', libthing_cc, )
 
