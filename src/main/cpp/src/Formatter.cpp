@@ -9,7 +9,7 @@ using namespace libthing;
 FormatterFactory s_sharedFactory;
 
 AsciiStlFormatter	s_asciiStlFormatter;
-//BinaryStlFormatter	s_binaryStlFormatter;
+BinaryStlFormatter	s_binaryStlFormatter;
 //ObjFormatter 		s_objFormatter;
 //ThingFormatter 		s_thingFormatter;
 
@@ -21,8 +21,8 @@ FormatterFactory& Formatter::getFactory() {
 FormatterFactory::FormatterFactory() {
     m_formatterMap["stl"].push_back(&s_asciiStlFormatter);
     m_formatterMap["ASCII STL (*.stl)"].push_back(&s_asciiStlFormatter);
-//    m_formatterMap["stl"].push_back(&s_binaryStlFormatter);
-//    m_formatterMap["Binary STL (*.stl)"].append(&s_binaryStlFormatter);
+    m_formatterMap["stl"].push_back(&s_binaryStlFormatter);
+    m_formatterMap["Binary STL (*.stl)"].push_back(&s_binaryStlFormatter);
 //    m_formatterMap["obj"].append(&s_objFormatter);
 //    m_formatterMap["thing"].append(&s_thingFormatter);
 }

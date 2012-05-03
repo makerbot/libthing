@@ -1,20 +1,96 @@
-//#include "stl.h"
-//#include "objtree/transformnode.h"
-//#include "objtree/meshnode.h"
-//
-//#include <iostream>
-//#include <stdint.h>
-//
-//using namespace std;
-//
-//static QVector3D readVertex(QDataStream& in) {
-//    float x, y, z;
-//    in >> x;
-//    in >> y;
-//    in >> z;
-//    return QVector3D(x,y,z);
-//}
-//
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+#include "libthing/StlFormatters.h"
+#include "libthing/Mesh.h"
+
+//// I too, hate this kind of crap, but what can one do?
+/// this is needed so network byte order works on all platforms.
+/// There may be a cleaner way, so fix it if you know how....
+#ifdef ON_DARWIN
+#if !defined(le32toh) || !defined(htole32)
+  #if BYTE_ORDER == LITTLE_ENDIAN
+    #define le32toh(x) (x)
+    #define htole32(x) bswap_32(x)
+  #else
+    #define le32toh(x) bswap_32(x)
+    #define htole32(x) (x)
+  #endif
+#endif
+ #if defined(HAVE_COREFOUNDATION_COREFOUNDATION_H)
+    #include <CoreFoundation/CoreFoundation.h>
+    #define htole32(x) CFSwapInt32HostToLittle(x)
+    #define le32toh(x) CFSwapInt32LittleToHost(x)
+ #endif
+#else
+  #if defined(ON_LINUX)
+    #include <endian.h>
+  #endif /*ON_LINUX*/
+#endif
+
+using namespace std;
+using namespace libthing;
+
+static int readUInt32(std::istream& in) {
+  uint32_t tmp;
+  in.read((istream::char_type*)&tmp,4);
+  return le32toh(tmp);
+}
+
+static float readFloat(std::istream& in) {
+  uint32_t tmp;
+  in.read((istream::char_type*)&tmp,4);
+  tmp = le32toh(tmp);
+  return *(float*)(&tmp);
+}
+
+static Vector3 readVertex(std::istream& in) {
+  Vertex v;
+  v[0] = readFloat(in);
+  v[1] = readFloat(in);
+  v[2] = readFloat(in);
+  return v;
+}
+
+#define COMMENT_MAX_LEN 80
+
+Mesh* BinaryStlFormatter::readMesh(std::istream& in) {
+  FaceNormalTriangleMesh mesh;
+  istream::char_type comment[81];
+  istream::char_type padding[2];
+  in.read(comment,COMMENT_MAX_LEN);
+  comment[COMMENT_MAX_LEN] = '\0';
+  //cout << "STL header comment: " << comment << endl;
+  mesh.setComment() = comment;
+  uint32_t facets = readUInt32(in);
+  //cout << "Facet count: " << facets << endl;
+  for (int f = 0; f < facets && !in.eof(); f++) {
+    // TODO: check that file is long enough! We can't have this
+    // block.
+    // Read normal
+	Vector3 t0,t1,t2, f0;
+    Triangle3 t;
+    f0 = readVertex(in);
+    v0 = readVertex(in);
+    v1 = readVertex(in);
+    v2 = readVertex(in);
+    mesh.addTriangle(FaceNormTriangle3(v0,v1,v2,f0));
+
+    // Read padding
+    in.read(padding,2);
+    //mesh.tris.push_back(t);
+    //int triIdx = mesh.tris.size();
+    //mesh.edges.addEdgesForTriangle(t,triIdx);
+  }
+  if (in.fail()) {
+    cerr << "Error reading file; file possibly corrupted or misunderstood." <<
+      endl;
+    throw ParseException();
+  }
+  return mesh;
+}
+
 //Mesh* BinaryStlFormatter::readMesh(QFile& inf) {
 //    FaceNormalTriangleMesh* mesh = new FaceNormalTriangleMesh();
 //    QDataStream in(&inf);
@@ -49,9 +125,7 @@
 //    return mesh;
 //}
 //
-//void BinaryStlFormatter::writeMesh(QFile& out, const Mesh& mesh) {
-//    throw -1;
-//}
+
 //
 //void writeBinReal32(QFile& out, float f) {
 //    out.write((const char*)&f,4);
@@ -131,31 +205,29 @@
 //    }
 //}
 //
-//void BinaryStlFormatter::writeMesh(QFile &outf, const SceneNode &node) {
-//
-//    // depth-first-traverse the scene tree
-//    //   if node is a transform node add its transform onto our transformation stack
-//    //   if node is a mesh node
-//    //     loop triangles
-//    //       transform each triangle, write it out
-//
-//    outf.open(QIODevice::WriteOnly);
-//
+void BinaryStlFormatter::writeMesh(std::ostream& outFh, const libthing::Mesh& mesh) {
+
+    // depth-first-traverse the scene tree
+    //   if node is a transform node add its transform onto our transformation stack
+    //   if node is a mesh node
+    //     loop triangles
+    //       transform each triangle, write it out
+
 //    QMatrix4x4 transformation;
 //    transformation.setToIdentity();
-//
-//    QString name = "prototype_export";
-//
-//    char nameField[80];
-//    memset(nameField,0,80);
-//    strncpy(nameField,name.toStdString().c_str(),name.size());
-//    outf.write(nameField, 80);
-//
+
+    std::string name = "prototype_export";
+
+    char nameField[COMMENT_MAX_LEN];
+    memset(nameField,0,COMMENT_MAX_LEN);
+    strncpy(nameField,mesh.getComment().c_str(),name.size());
+    outf.write(nameField, COMMENT_MAX_LEN);
+
+	throw -1;
+
 //    uint32_t triCount = countTris(&node);
 //    outf.write((const char*)&triCount,sizeof(triCount));
 //
 //    writeBinMeshRecurse(outf, &node, transformation);
-//
-//    outf.flush();
-//    outf.close();
-//}
+
+}

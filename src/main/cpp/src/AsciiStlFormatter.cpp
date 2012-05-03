@@ -1,33 +1,14 @@
-#include "libthing/StlFormatters.h"
-#include "libthing/Mesh.h"
-//#include "objtree/meshnode.h"
-//
-//#include <QVector3D>
-//#include <QString>
-//#include <QTextStream>
-
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
+#include "libthing/StlFormatters.h"
+#include "libthing/Mesh.h"
+
 using namespace std;
 using namespace libthing;
-//
-//static void expect(QTextStream& in, const QString& expected) {
-//    in.skipWhiteSpace();
-//    QString got = in.read(expected.length());
-//    if (got != expected) {
-//        throw ParseException(QString("Expected ") + expected);
-//    }
-//    in.skipWhiteSpace();
-//}
-//
-//static QVector3D readVertex(QTextStream& in, const QString& expected) {
-//    expect(in,expected);
-//    float x, y, z;
-//    in >> x >> y >> z;
-//    return QVector3D(x,y,z);
-//}
+
+
 static void expect(std::istream& in, const string expected) {
   string got;
   in >> got;
@@ -44,6 +25,8 @@ static Vector3 readVertex(std::istream& in, const string expected) {
   in >> v[0] >> v[1] >> v[2];
   return v;
 }
+
+
 static string readHeader(std::istream& in) {
   expect(in,"solid");
   string comment;

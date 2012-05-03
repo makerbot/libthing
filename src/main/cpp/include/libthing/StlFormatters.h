@@ -18,7 +18,7 @@ public:
 class BinaryStlFormatter : public Formatter {
 
 public:
-	  libthing::Mesh* readMesh(std::fstream& inFh);
+	  libthing::Mesh* readMesh(std::istream& inFh);
 	  void writeMesh(std::ostream& outFh, const libthing::Mesh& mesh);
 };
 
