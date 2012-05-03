@@ -1,6 +1,8 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <stdint.h>
+#include <string.h>
 
 #include "libthing/StlFormatters.h"
 #include "libthing/Mesh.h"
@@ -46,7 +48,7 @@ static float readFloat(std::istream& in) {
 }
 
 static Vector3 readVertex(std::istream& in) {
-  Vertex v;
+  Vector3 v;
   v[0] = readFloat(in);
   v[1] = readFloat(in);
   v[2] = readFloat(in);
@@ -62,15 +64,14 @@ Mesh* BinaryStlFormatter::readMesh(std::istream& in) {
   in.read(comment,COMMENT_MAX_LEN);
   comment[COMMENT_MAX_LEN] = '\0';
   //cout << "STL header comment: " << comment << endl;
-  mesh.setComment() = comment;
+  mesh.setComment(comment);
   uint32_t facets = readUInt32(in);
   //cout << "Facet count: " << facets << endl;
   for (int f = 0; f < facets && !in.eof(); f++) {
     // TODO: check that file is long enough! We can't have this
     // block.
     // Read normal
-	Vector3 t0,t1,t2, f0;
-    Triangle3 t;
+	Vector3 v0,v1,v2, f0;
     f0 = readVertex(in);
     v0 = readVertex(in);
     v1 = readVertex(in);
@@ -88,7 +89,7 @@ Mesh* BinaryStlFormatter::readMesh(std::istream& in) {
       endl;
     throw ParseException();
   }
-  return mesh;
+  return &mesh;
 }
 
 //Mesh* BinaryStlFormatter::readMesh(QFile& inf) {
@@ -216,12 +217,11 @@ void BinaryStlFormatter::writeMesh(std::ostream& outFh, const libthing::Mesh& me
 //    QMatrix4x4 transformation;
 //    transformation.setToIdentity();
 
-    std::string name = "prototype_export";
-
-    char nameField[COMMENT_MAX_LEN];
-    memset(nameField,0,COMMENT_MAX_LEN);
-    strncpy(nameField,mesh.getComment().c_str(),name.size());
-    outf.write(nameField, COMMENT_MAX_LEN);
+//    char nameField[COMMENT_MAX_LEN];
+//    memset(nameField,0,COMMENT_MAX_LEN);
+//    string name = mesh.getComment();
+//    strncpy(nameField,name.c_str(),name.size());
+//    outFh.write(nameField, COMMENT_MAX_LEN);
 
 	throw -1;
 

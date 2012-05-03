@@ -18,6 +18,8 @@ class ModelReaderTestCase : public CPPUNIT_NS::TestFixture
   CPPUNIT_TEST( testAsciiStlFormatterCycleMin );
   CPPUNIT_TEST( testAsciiStlFormatterCycle );
 
+  CPPUNIT_TEST( testBinaryStlFormatterCycle );
+
   CPPUNIT_TEST_SUITE_END();
 
 
@@ -29,6 +31,8 @@ protected:
   void testAsciiStlFormatterCycleNull();
   void testAsciiStlFormatterCycleMin();
   void testAsciiStlFormatterCycle();
+
+  void testBinaryStlFormatterCycle();
 
 };
 

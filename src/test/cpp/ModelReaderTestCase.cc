@@ -44,14 +44,14 @@ void ModelReaderTestCase::testAsciiStlFormatterCycle()
 	string drop = outputsDir + "3D_Knot.stl";
 	string drop2 = outputsDir + "3D_Knot_v2.stl";
 
-	AsciiStlFormatter asciiStlFormatter;
+	AsciiStlFormatter AsciiStlFormatter;
 
 	cout << "Reading test file:"  << target << endl;
 
 	std::ifstream stream;
 	stream.open(target.c_str());
 	t0=clock();
-	Mesh* mesh1 = asciiStlFormatter.readMesh(stream);
+	Mesh* mesh1 = AsciiStlFormatter.readMesh(stream);
 	t1=clock()-t0;
 	stream.close();
 	//mesh->dump(cout);
@@ -61,7 +61,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycle()
 	std::ofstream outStream;
 	outStream.open(drop.c_str());
 	t0=clock();
-	asciiStlFormatter.writeMesh(outStream,*mesh1);
+	AsciiStlFormatter.writeMesh(outStream,*mesh1);
 	t1=clock()-t0;
 	outStream.close();
 	cout << "Wrote: " << drop <<" in seconds: " << t1 << endl;
@@ -70,7 +70,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycle()
 	cout << "Reload test, reloading file: "  << drop  << endl;
 	stream.open(drop.c_str());
 	t0=clock();
-	Mesh* mesh2 = asciiStlFormatter.readMesh(stream);
+	Mesh* mesh2 = AsciiStlFormatter.readMesh(stream);
 	stream.close();
 	t1=clock()-t0;
 	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
@@ -79,7 +79,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycle()
 
 	cout << "Re-Writing test file: "  << drop2 << endl;
 	outStream.open(drop2.c_str());
-	asciiStlFormatter.writeMesh(outStream,*mesh2);
+	AsciiStlFormatter.writeMesh(outStream,*mesh2);
 	outStream.close();
 	unsigned int t2=clock()-t1;
 	cout << "Re-Wrote: " << drop2 <<" in seconds: " << t2 << endl;
@@ -95,14 +95,14 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleNull()
 	string drop2 = outputsDir + "Null_v2.stl";
 
 
-	AsciiStlFormatter asciiStlFormatter;
+	AsciiStlFormatter AsciiStlFormatter;
 
 	cout << "Reading test file:"  << target << endl;
 
 	std::ifstream stream;
 	stream.open(target.c_str());
 	t0=clock();
-	Mesh* mesh1 = asciiStlFormatter.readMesh(stream);
+	Mesh* mesh1 = AsciiStlFormatter.readMesh(stream);
 	stream.close();
 	t1=clock()-t0;
 	//dump(cout);
@@ -113,7 +113,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleNull()
 
 	std::ofstream outStream;
 	outStream.open(drop.c_str());
-	asciiStlFormatter.writeMesh(outStream,*mesh1);
+	AsciiStlFormatter.writeMesh(outStream,*mesh1);
 	//mesh3.writeStlFile( drop.c_str());
 	outStream.close();
 	unsigned int t2=clock()-t1;
@@ -122,7 +122,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleNull()
 	cout << "Reload test, reloading file: "  << drop << endl;
 	stream.open(drop.c_str());
 	t0=clock();
-	Mesh* mesh2 = asciiStlFormatter.readMesh(stream);
+	Mesh* mesh2 = AsciiStlFormatter.readMesh(stream);
 	stream.close();
 	t1=clock()-t0;
 	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
@@ -131,7 +131,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleNull()
 
 	cout << "Re-Writing test file: "  << drop2 << endl;
 	outStream.open(drop2.c_str());
-	asciiStlFormatter.writeMesh(outStream,*mesh2);
+	AsciiStlFormatter.writeMesh(outStream,*mesh2);
 	outStream.close();
 	t2=clock()-t1;
 	cout << "Re-Wrote: " << drop2 <<" in seconds: " << t2 << endl;
@@ -144,14 +144,14 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleMin()
 	string drop = outputsDir + "OneTriangle.stl";
 	string drop2 = outputsDir + "OneTriangle_v2.stl";
 
-	AsciiStlFormatter asciiStlFormatter;
+	AsciiStlFormatter AsciiStlFormatter;
 
 	cout << "Reading test file:"  << target << endl;
 
 	std::ifstream stream;
 	stream.open(target.c_str());
 	t0=clock();
-	Mesh* mesh1 = asciiStlFormatter.readMesh(stream);
+	Mesh* mesh1 = AsciiStlFormatter.readMesh(stream);
 	stream.close();
 	t1=clock()-t0;
 	//dump(cout);
@@ -162,7 +162,7 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleMin()
 
 	std::ofstream outStream;
 	outStream.open(drop.c_str());
-	asciiStlFormatter.writeMesh(outStream,*mesh1);
+	AsciiStlFormatter.writeMesh(outStream,*mesh1);
 	//mesh3.writeStlFile( drop.c_str());
 	outStream.close();
 	unsigned int t2=clock()-t1;
@@ -171,9 +171,64 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleMin()
 	cout << "Reload test, reloading file: "  << drop << endl;
 	stream.open(drop.c_str());
 	t0=clock();
-	Mesh* mesh2 = asciiStlFormatter.readMesh(stream);
+	Mesh* mesh2 = AsciiStlFormatter.readMesh(stream);
 	stream.close();
 	t1=clock()-t0;
 	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
 }
+
+
+
+
+
+void ModelReaderTestCase::testBinaryStlFormatterCycle()
+{
+	unsigned int t0,t1;
+	string target = inputsDir + "teapot.bin.stl";
+	string drop = outputsDir + "teapot.bin.stl";
+//	string drop2 = outputsDir + "3D_Knot_v2.stl";
+
+	BinaryStlFormatter BinaryStlFormatter;
+
+	cout << "Reading test file:"  << target << endl;
+
+	std::ifstream stream;
+	stream.open(target.c_str());
+	t0=clock();
+	Mesh* mesh1 = BinaryStlFormatter.readMesh(stream);
+	t1=clock()-t0;
+	stream.close();
+	//mesh->dump(cout);
+	cout << "Read: " << target <<" in seconds: " << t1 << endl;
+//
+	cout << "Writing test file:"  << drop << endl;
+	std::ofstream outStream;
+	outStream.open(drop.c_str());
+	t0=clock();
+	BinaryStlFormatter.writeMesh(outStream,*mesh1);
+//	t1=clock()-t0;
+//	outStream.close();
+//	cout << "Wrote: " << drop <<" in seconds: " << t1 << endl;
+
+
+//	cout << "Reload test, reloading file: "  << drop  << endl;
+//	stream.open(drop.c_str());
+//	t0=clock();
+//	Mesh* mesh2 = BinaryStlFormatter.readMesh(stream);
+//	stream.close();
+//	t1=clock()-t0;
+//	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
+
+	//CPPUNIT_ASSERT(*mesh1 == *mesh2);
+
+//	cout << "Re-Writing test file: "  << drop2 << endl;
+//	outStream.open(drop2.c_str());
+//	BinaryStlFormatter.writeMesh(outStream,*mesh2);
+//	outStream.close();
+//	unsigned int t2=clock()-t1;
+//	cout << "Re-Wrote: " << drop2 <<" in seconds: " << t2 << endl;
+
+}
+
+
 
