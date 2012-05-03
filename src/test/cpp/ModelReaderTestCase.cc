@@ -217,34 +217,37 @@ void ModelReaderTestCase::testMeshyCycle()
 	stream.open(target.c_str());
 	t0=clock();
 	Mesh* mesh1 = asciiStlFormatter.readMesh(stream);
-
 	t1=clock()-t0;
+	stream.close();
 	//mesh->dump(cout);
 	cout << "Read: " << target <<" in seconds: " << t1 << endl;
 
 	cout << "Writing test file:"  << drop << endl;
-	std::ofstream outStream1;
-	outStream1.open(target.c_str());
+	std::ofstream outStream;
+	outStream.open(drop.c_str());
 	t0=clock();
-	asciiStlFormatter.writeMesh(outStream1,*mesh1);
+	asciiStlFormatter.writeMesh(outStream,*mesh1);
 	t1=clock()-t0;
+	outStream.close();
 	cout << "Wrote: " << drop <<" in seconds: " << t1 << endl;
 
-	//	mesh3.writeStlFile( drop.c_str() );
-//	unsigned int t2=clock()-t1;
-//	cout << "Wrote: " << drop <<" in seconds: " << t2 << endl;
-//
-//	cout << "Reload test, reloading file: "  << drop << endl;
-//	Meshy mesh4(0.35, 0.35);
-//	t0=clock();
-//	mesh4.readStlFile( drop.c_str());
-//	t1=clock()-t0;
-//	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
-////	CPP_UNIT_ASSERT(mesh3 == mesh4);
-//	cout << "Writing test file: "  << drop2 << endl;
-//	mesh4.writeStlFile( drop2.c_str());
-//	t2=clock()-t1;
-//	cout << "Wrote: " << drop2 <<" in seconds: " << t2 << endl;
+
+	cout << "Reload test, reloading file: "  << drop  << endl;
+	stream.open(drop.c_str());
+	t0=clock();
+	Mesh* mesh2 = asciiStlFormatter.readMesh(stream);
+	stream.close();
+	t1=clock()-t0;
+	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
+
+	//CPPUNIT_ASSERT(*mesh1 == *mesh2);
+
+	cout << "Re-Writing test file: "  << drop2 << endl;
+	outStream.open(drop2.c_str());
+	asciiStlFormatter.writeMesh(outStream,*mesh2);
+	outStream.close();
+	unsigned int t2=clock()-t1;
+	cout << "Re-Wrote: " << drop2 <<" in seconds: " << t2 << endl;
 
 }
 
@@ -289,7 +292,7 @@ void ModelReaderTestCase::testMeshyCycleNull()
 	t1=clock()-t0;
 	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
 
-	//CPP_UNIT_ASSERT(mesh1 == mesh2);
+	//CPPUNIT_ASSERT(*mesh1 == *mesh2);
 
 	cout << "Re-Writing test file: "  << drop2 << endl;
 	outStream.open(drop2.c_str());
