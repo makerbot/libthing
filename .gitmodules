@@ -1,3 +1,6 @@
 [submodule "submodules/rtree"]
 	path = submodules/rtree
 	url = https://github.com/nushoin/RTree.git
+[submodule "submodules/assimp"]
+	path = submodules/assimp
+	url = git@github.com:makerbot/assimp.git

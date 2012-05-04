@@ -238,7 +238,7 @@ void BinaryStlFormatter::writeMesh(std::ostream& outFh, const libthing::Mesh& me
 	char nameField[COMMENT_MAX_LEN];
     strncpy(nameField, mesh.getComment().c_str(), COMMENT_MAX_LEN);
 	outFh.write(nameField, COMMENT_MAX_LEN);
-	cout << "BLARG " << endl;
+	//cout << "BLARG " << endl;
 
 	const FaceNormalTriangleMesh* fntMesh = dynamic_cast<const FaceNormalTriangleMesh*>(&mesh);
 
@@ -247,17 +247,10 @@ void BinaryStlFormatter::writeMesh(std::ostream& outFh, const libthing::Mesh& me
 		std::vector<FaceNormTriangle3> tris = fntMesh->readAllTriangles();	
 		uint32_t faces = tris.size();
 		writeUInt32(outFh, faces);
-		cout << "blarg 2" << tris.size()  << endl;
+		//cout << "blarg 2" << tris.size()  << endl;
 		FOREACH(I, tris) { //FUTURE: make this a C++11 foreach someday soon
 			writeTriangleBinary(outFh, *I, (*I).normal());
 			outFh.write(padding, 2);//padding
 		}
 	}
-	throw -1;
-
-//    uint32_t triCount = countTris(&node);
-//    outf.write((const char*)&triCount,sizeof(triCount));
-//
-//    writeBinMeshRecurse(outf, &node, transformation);
-
 }

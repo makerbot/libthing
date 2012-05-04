@@ -111,7 +111,14 @@ Mesh* ObjFormatter::readMesh(istream& in) {
     return mesh;
 }
 
-    void ObjFormatter::writeMesh(ostream& outFh, const Mesh& mesh)
-    {
-        throw -1;
-    }
+void ObjFormatter::writeMesh(ostream& outFh, const Mesh& mesh)
+{
+	FaceNormalTriangleMesh* fntMesh = dyamic_cast<FaceNormalTriangleMesh>(mesh);
+	VertexNormalTriangleMesh* vntMesh = dyamic_cast<VertexNormalTriangleMesh>(mesh);
+	
+	if(vntMesh != NULL) {
+		std::vector<VertexNormTriangle3> tris = vntMesh.readAllTriangles();
+		
+
+	throw -1;
+}

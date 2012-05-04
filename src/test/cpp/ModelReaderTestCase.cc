@@ -17,7 +17,7 @@
 
 #include "libthing/StlFormatters.h"
 #include "libthing/PlatformTools.h"
-
+#include "libthing/ObjFormatter.h"
 CPPUNIT_TEST_SUITE_REGISTRATION( ModelReaderTestCase );
 
 using namespace std;
@@ -187,7 +187,7 @@ void ModelReaderTestCase::testBinaryStlFormatterCycle()
 	unsigned int t0,t1;
 	string target = inputsDir + "flat.bin.stl";
 	string drop = outputsDir + "flat.bin.stl";
-//	string drop2 = outputsDir + "teapot_v2.bin.stl";
+	string drop2 = outputsDir + "flat_v2.bin.stl";
 
 	BinaryStlFormatter BinaryStlFormatter;
 
@@ -201,7 +201,7 @@ void ModelReaderTestCase::testBinaryStlFormatterCycle()
 	stream.close();
 	//mesh->dump(cout);
 	cout << "Read: " << target <<" in seconds: " << t1 << endl;
-//
+
 	cout << "Writing test file:"  << drop << endl;
 	std::ofstream outStream;
 	outStream.open(drop.c_str());
@@ -212,22 +212,22 @@ void ModelReaderTestCase::testBinaryStlFormatterCycle()
 	cout << "Wrote: " << drop <<" in seconds: " << t1 << endl;
 
 
-//	cout << "Reload test, reloading file: "  << drop  << endl;
-//	stream.open(drop.c_str());
-//	t0=clock();
-//	Mesh* mesh2 = BinaryStlFormatter.readMesh(stream);
-//	stream.close();
-//	t1=clock()-t0;
-//	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
+	cout << "Reload test, reloading file: "  << drop  << endl;
+	stream.open(drop.c_str());
+	t0=clock();
+	Mesh* mesh2 = BinaryStlFormatter.readMesh(stream);
+	stream.close();
+	t1=clock()-t0;
+	cout << "Re-Read: " << target <<" in seconds: " << t1 << endl;
 
-	//CPPUNIT_ASSERT(*mesh1 == *mesh2);
+//	//CPPUNIT_ASSERT(*mesh1 == *mesh2);
 
-//	cout << "Re-Writing test file: "  << drop2 << endl;
-//	outStream.open(drop2.c_str());
-//	BinaryStlFormatter.writeMesh(outStream,*mesh2);
-//	outStream.close();
-//	unsigned int t2=clock()-t1;
-//	cout << "Re-Wrote: " << drop2 <<" in seconds: " << t2 << endl;
+	cout << "Re-Writing test file: "  << drop2 << endl;
+	outStream.open(drop2.c_str());
+	BinaryStlFormatter.writeMesh(outStream,*mesh2);
+	outStream.close();
+	unsigned int t2=clock()-t1;
+	cout << "Re-Wrote: " << drop2 <<" in seconds: " << t2 << endl;
 
 }
 
@@ -238,12 +238,12 @@ void ModelReaderTestCase::testObjFormatterCycle()
 	unsigned int t0,t1;
 	string target = inputsDir + "teapot.obj";
 	string drop = outputsDir + "teapot.obj";
-//	string drop2 = outputsDir + "teapot.2.obj";
+	string drop2 = outputsDir + "teapot.2.obj";
 
-	BinaryStlFormatter BinaryStlFormatter;
+	ObjFormatter objf;
 
 	cout << "Reading test file:"  << target << endl;
 
-	std::ifstream stream;
+//	std::ifstream stream;
                         	
 }
