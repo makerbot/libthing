@@ -1,6 +1,6 @@
 #include "libthing/Formatter.h"
 #include "libthing/StlFormatters.h"
-//#include "objformatter.h"
+#include "libthing/ObjFormatter.h"
 //#include "thingformatter.h"
 
 using namespace libthing;
@@ -10,7 +10,7 @@ FormatterFactory s_sharedFactory;
 
 AsciiStlFormatter	s_asciiStlFormatter;
 BinaryStlFormatter	s_binaryStlFormatter;
-//ObjFormatter 		s_objFormatter;
+ObjFormatter 		s_objFormatter;
 //ThingFormatter 		s_thingFormatter;
 
 

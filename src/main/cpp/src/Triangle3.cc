@@ -1,9 +1,15 @@
+#include <stdexcept>
 #include "libthing/Triangle3.h"
 #include "libthing/Scalar.h"
 
 using namespace libthing;
 using namespace std;
 
+
+Triangle3::Triangle3():v0(0.0,0.0,0.0), v1(0.0,0.0,0.0), v2(0.0,0.0,0.0)
+{
+	// this spae intentionally left blank
+}
 
 Triangle3::Triangle3(const Vector3& v0, const Vector3& v1, const Vector3& v2)
 :v0(v0),v1(v1),v2(v2)
@@ -305,6 +311,12 @@ bool Triangle3::sliceTriangle(Scalar& Z, Vector3 &a, Vector3 &b) const
 }
 
 
+VertexNormTriangle3::VertexNormTriangle3(): 
+	Triangle3(), n0(), n1(), n2()
+{
+	/// this space intentionally left blank
+}
+
 
 VertexNormTriangle3::VertexNormTriangle3(
 		const Vector3& v0, const Vector3& v1, const Vector3& v2,
@@ -314,6 +326,15 @@ VertexNormTriangle3::VertexNormTriangle3(
 	/// this space intentionally left blank
 }
 
+void VertexNormTriangle3::setVertexNormal(index_t vertex, Vector3& norm)
+{
+	if(vertex == 0) n0 = norm;
+	else if(vertex == 1) n1 = norm;
+	else if(vertex == 2) n2 = norm;
+	else { 
+		throw std::out_of_range("setVertexNormal out of range");
+	}
+}
 
 FaceNormTriangle3::FaceNormTriangle3(
 		const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector3& f0):

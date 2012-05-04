@@ -89,8 +89,11 @@ Mesh* AsciiStlFormatter::readMesh(istream& in) {
     return mesh;
 }
 
+static void writeTriangleBinary(ostream& out, const Triangle3& tri, const Vector3& normal) {
+	
+}
 
-static void writeTriangle(ostream& out, const Triangle3& tri, const Vector3& normal) {
+static void writeTriangleAscii(ostream& out, const Triangle3& tri, const Vector3& normal) {
     out << " facet normal " << normal.x << " " << normal.y << " " << normal.z << "\n";
     out << "  outer loop"<< "\n";
     out << "    vertex " << tri[0].x << " " << tri[0].y << " " << tri[0].z << "\n";
@@ -106,11 +109,8 @@ static void writeTriangle(ostream& out, const Triangle3& tri, const Vector3& nor
 //    t.p[0] = trans*tri.p[0];
 //    t.p[1] = trans*tri.p[1];
 //    t.p[2] = trans*tri.p[2];
-//    writeTriangle(out, t, t.computeNormal());
+//    writeTriangleAscii(out, t, t.computeNormal());
 //}
-
-#define VAR(V,init) __typeof(init) V=(init)
-#define FOREACH(I,C) for(VAR(I,(C).begin());I!=(C).end();I++)
 
 
 // writes out a single, untransformed mesh
@@ -125,13 +125,13 @@ void AsciiStlFormatter::writeMesh(ostream& out, const Mesh& mesh) {
     if(fntMesh != 0){
     	const std::vector<FaceNormTriangle3>& tris = fntMesh->readAllTriangles();
     	FOREACH(I, tris) { //FUTURE: make this a C++11 foreach someday soon
-			writeTriangle(out, *I, (*I).normal());
+			writeTriangleAscii(out, *I, (*I).normal());
     	}
     }
     else if(vntMesh != 0) {
     	const std::vector<VertexNormTriangle3>& tris = vntMesh->readAllTriangles();
     	FOREACH(I, tris) { //FUTURE: make this a C++11 foreach someday soon
-			writeTriangle(out, *I, (*I).normal());
+			writeTriangleAscii(out, *I, (*I).normal());
     	}
     }
     else // We should have better failure behavior here.

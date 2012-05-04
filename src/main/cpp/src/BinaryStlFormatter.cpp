@@ -40,11 +40,37 @@ static int readUInt32(std::istream& in) {
   return le32toh(tmp);
 }
 
+static int writeUInt32(std::ostream& out, uint32_t value) {
+	uint32_t tmp = htole32(value);
+	out.write((ostream::char_type*)&tmp,4);	
+}
+
+static int writeFloat(std::ostream& out, float value) {
+	uint32_t* p = (uint32_t*)&value;	
+	uint32_t tmp = htole32(*p);
+	out.write((ostream::char_type*)&tmp,4);
+}
+
 static float readFloat(std::istream& in) {
   uint32_t tmp;
   in.read((istream::char_type*)&tmp,4);
   tmp = le32toh(tmp);
   return *(float*)(&tmp);
+}
+
+static void writeVertex(ostream& out, Vector3 const& vertex)
+{
+	writeFloat(out, vertex[0]);
+	writeFloat(out, vertex[1]);
+	writeFloat(out, vertex[2]);
+}
+
+static void writeTriangleBinary(ostream& out, Triangle3 const& tri, Vector3 const& normal) {
+
+	writeVertex(out, normal);
+	writeVertex(out, tri[0]);	
+	writeVertex(out, tri[1]);	
+	writeVertex(out, tri[2]);	
 }
 
 static Vector3 readVertex(std::istream& in) {
@@ -58,25 +84,25 @@ static Vector3 readVertex(std::istream& in) {
 #define COMMENT_MAX_LEN 80
 
 Mesh* BinaryStlFormatter::readMesh(std::istream& in) {
-  FaceNormalTriangleMesh mesh;
+  FaceNormalTriangleMesh* mesh = new FaceNormalTriangleMesh();
   istream::char_type comment[81];
   istream::char_type padding[2];
   in.read(comment,COMMENT_MAX_LEN);
   comment[COMMENT_MAX_LEN] = '\0';
   //cout << "STL header comment: " << comment << endl;
-  mesh.setComment(comment);
+  mesh->setComment(comment);
   uint32_t facets = readUInt32(in);
   //cout << "Facet count: " << facets << endl;
   for (int f = 0; f < facets && !in.eof(); f++) {
     // TODO: check that file is long enough! We can't have this
     // block.
     // Read normal
-	Vector3 v0,v1,v2, f0;
-    f0 = readVertex(in);
-    v0 = readVertex(in);
-    v1 = readVertex(in);
-    v2 = readVertex(in);
-    mesh.addTriangle(FaceNormTriangle3(v0,v1,v2,f0));
+        Vector3 v0,v1,v2, f0;
+        f0 = readVertex(in);
+        v0 = readVertex(in);
+        v1 = readVertex(in);
+        v2 = readVertex(in);
+        mesh->addTriangle(FaceNormTriangle3(v0,v1,v2,f0));
 
     // Read padding
     in.read(padding,2);
@@ -89,7 +115,7 @@ Mesh* BinaryStlFormatter::readMesh(std::istream& in) {
       endl;
     throw ParseException();
   }
-  return &mesh;
+  return mesh;
 }
 
 //Mesh* BinaryStlFormatter::readMesh(QFile& inf) {
@@ -208,21 +234,25 @@ Mesh* BinaryStlFormatter::readMesh(std::istream& in) {
 //
 void BinaryStlFormatter::writeMesh(std::ostream& outFh, const libthing::Mesh& mesh) {
 
-    // depth-first-traverse the scene tree
-    //   if node is a transform node add its transform onto our transformation stack
-    //   if node is a mesh node
-    //     loop triangles
-    //       transform each triangle, write it out
+    istream::char_type padding[2] = {0x00, 0x00};
+	char nameField[COMMENT_MAX_LEN];
+    strncpy(nameField, mesh.getComment().c_str(), COMMENT_MAX_LEN);
+	outFh.write(nameField, COMMENT_MAX_LEN);
+	cout << "BLARG " << endl;
 
-//    QMatrix4x4 transformation;
-//    transformation.setToIdentity();
+	const FaceNormalTriangleMesh* fntMesh = dynamic_cast<const FaceNormalTriangleMesh*>(&mesh);
 
-//    char nameField[COMMENT_MAX_LEN];
-//    memset(nameField,0,COMMENT_MAX_LEN);
-//    string name = mesh.getComment();
-//    strncpy(nameField,name.c_str(),name.size());
-//    outFh.write(nameField, COMMENT_MAX_LEN);
-
+	if(fntMesh != NULL) 
+	{
+		std::vector<FaceNormTriangle3> tris = fntMesh->readAllTriangles();	
+		uint32_t faces = tris.size();
+		writeUInt32(outFh, faces);
+		cout << "blarg 2" << tris.size()  << endl;
+		FOREACH(I, tris) { //FUTURE: make this a C++11 foreach someday soon
+			writeTriangleBinary(outFh, *I, (*I).normal());
+			outFh.write(padding, 2);//padding
+		}
+	}
 	throw -1;
 
 //    uint32_t triCount = countTris(&node);

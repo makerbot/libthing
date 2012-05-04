@@ -55,6 +55,8 @@ public:
     // makes you normal. Normal is the perfect size (1)
     void normalise();
 
+	Vector3 getNormal() const;
+
     Vector3 unit() const;
 };
 } //end namespace mgl

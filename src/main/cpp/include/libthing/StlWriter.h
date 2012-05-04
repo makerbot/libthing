@@ -32,7 +32,7 @@ class StlWriter
 
 public:
 	void open(char const *fileName, char const *solid="Default");
-	void writeTriangle(libthing::Triangle3 const& t);
+	void writeTriangleAscii(libthing::Triangle3 const& t);
 	void close();
 
 };

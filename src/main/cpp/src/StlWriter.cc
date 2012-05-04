@@ -26,7 +26,7 @@ void StlWriter::open(const char* fileName, const char *solid)
 
 }
 
-void StlWriter::writeTriangle(const Triangle3& t)
+void StlWriter::writeTriangleAscii(const Triangle3& t)
 {
 	// normalize( (v1-v0) cross (v2 - v0) )
 	// y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x

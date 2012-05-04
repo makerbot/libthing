@@ -32,6 +32,7 @@ CPPUNIT_ASSERT_DOUBLES_EQUAL( 1.0, 1.1, 0.05 );
 CPPUNIT_ASSERT_EQUAL( 12, 12 );
 CPPUNIT_ASSERT( 12L == 12L );
 */
+
 void ModelReaderTestCase::setUp()
 {
 	//this space intentionally left blank
@@ -184,9 +185,9 @@ void ModelReaderTestCase::testAsciiStlFormatterCycleMin()
 void ModelReaderTestCase::testBinaryStlFormatterCycle()
 {
 	unsigned int t0,t1;
-	string target = inputsDir + "teapot.bin.stl";
-	string drop = outputsDir + "teapot.bin.stl";
-//	string drop2 = outputsDir + "3D_Knot_v2.stl";
+	string target = inputsDir + "flat.bin.stl";
+	string drop = outputsDir + "flat.bin.stl";
+//	string drop2 = outputsDir + "teapot_v2.bin.stl";
 
 	BinaryStlFormatter BinaryStlFormatter;
 
@@ -206,9 +207,9 @@ void ModelReaderTestCase::testBinaryStlFormatterCycle()
 	outStream.open(drop.c_str());
 	t0=clock();
 	BinaryStlFormatter.writeMesh(outStream,*mesh1);
-//	t1=clock()-t0;
-//	outStream.close();
-//	cout << "Wrote: " << drop <<" in seconds: " << t1 << endl;
+	t1=clock()-t0;
+	outStream.close();
+	cout << "Wrote: " << drop <<" in seconds: " << t1 << endl;
 
 
 //	cout << "Reload test, reloading file: "  << drop  << endl;
@@ -232,3 +233,17 @@ void ModelReaderTestCase::testBinaryStlFormatterCycle()
 
 
 
+void ModelReaderTestCase::testObjFormatterCycle()
+{
+	unsigned int t0,t1;
+	string target = inputsDir + "teapot.obj";
+	string drop = outputsDir + "teapot.obj";
+//	string drop2 = outputsDir + "teapot.2.obj";
+
+	BinaryStlFormatter BinaryStlFormatter;
+
+	cout << "Reading test file:"  << target << endl;
+
+	std::ifstream stream;
+                        	
+}

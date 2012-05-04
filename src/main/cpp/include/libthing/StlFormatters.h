@@ -22,5 +22,9 @@ public:
 	  void writeMesh(std::ostream& outFh, const libthing::Mesh& mesh);
 };
 
+/// for each macro for use in stl reader/writers
+#define VAR(V,init) __typeof(init) V=(init)
+#define FOREACH(I,C) for(VAR(I,(C).begin());I!=(C).end();I++)
+
 } //end namespace libthing
 #endif // STL_FORMATTER_H

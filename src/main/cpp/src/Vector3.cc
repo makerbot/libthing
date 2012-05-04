@@ -117,6 +117,14 @@ void Vector3::normalise()
 	}
 }
 
+Vector3 Vector3::getNormal() const
+{
+	Scalar l = magnitude();
+	if (l != 0)
+		return Vector3(x * l, y*l, z*l);
+	return Vector3(0.0,0.0,0.0);
+}
+
 
 Vector3 Vector3::unit() const
 {

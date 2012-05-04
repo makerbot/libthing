@@ -20,6 +20,7 @@ class ModelReaderTestCase : public CPPUNIT_NS::TestFixture
 
   CPPUNIT_TEST( testBinaryStlFormatterCycle );
 
+  CPPUNIT_TEST( testObjFormatterCycle );
   CPPUNIT_TEST_SUITE_END();
 
 
@@ -33,7 +34,7 @@ protected:
   void testAsciiStlFormatterCycle();
 
   void testBinaryStlFormatterCycle();
-
+  void testObjFormatterCycle();
 };
 
 
