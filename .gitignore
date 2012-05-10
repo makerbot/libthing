@@ -1,5 +1,6 @@
 #ignore object files
 src/main/cpp/src/*.o
+src/main/cpp-qt/src/*.o
 src/test/cpp/*.o
 
 #ignore ouput bin directory
