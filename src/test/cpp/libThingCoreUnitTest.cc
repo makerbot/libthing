@@ -56,24 +56,32 @@ void  LibThingTestCase::testScalarMaths(){
 	/** helper functions **/
 	Scalar s1 = 0, s2 = 0;
 	CPPUNIT_ASSERT( tequals(s1, s1, 0.2) == true);
+	CPPUNIT_ASSERT( tlower(s1, s1, 0.2) == true);
 	CPPUNIT_ASSERT( tequals(s1, s1, 1) == true);
+	CPPUNIT_ASSERT( tlower(s1, s1, 1) == true);
 	s1 = 10, s2 = 10.1;
 	CPPUNIT_ASSERT( tequals(s1, s2, 0.05) == false);
+	CPPUNIT_ASSERT( tlower(s1, s2, 0.05) == true);
 	CPPUNIT_ASSERT( tequals(s1, s2, 1) == true);
+	CPPUNIT_ASSERT( tlower(s1, s2, 1) == true);
 	s1 = 0, s2 = SCALAR_EPSILON;
 	CPPUNIT_ASSERT( tequals(s1, s2, 0) == false);
+	CPPUNIT_ASSERT( tlower(s1, s2, 0) == false);
 	s1 = 0, s2 = 0;
 	Scalar t1 = SCALAR_EPSILON;
 	CPPUNIT_ASSERT( tequals(s1, s2, t1) == true);
+	CPPUNIT_ASSERT( tlower(s1, s2, t1) == false);
 
 	// Note the behavior of tequals vs. SCALAR_EPSILON
 	s1 = 0, s2 = SCALAR_EPSILON;
 	CPPUNIT_ASSERT( tequals(s1, s2, 0) == false);
+	CPPUNIT_ASSERT( tlower(s1, s2, 0) == true);
 
 	// Note the behavior of tequals vs. SCALAR_EPSILON
 	s1 = 0, s2 = SCALAR_EPSILON;
 	t1 = SCALAR_EPSILON;
 	CPPUNIT_ASSERT( tequals(s1, s2, t1) == false);
+	CPPUNIT_ASSERT( tlower(s1, s2, t1) == false);
 
 }
 

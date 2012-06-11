@@ -24,6 +24,11 @@ namespace libthing {
  * @returns true if two Scalar values are approximately the same using tolerance
  */
 	bool tequals(Scalar const& a, Scalar const& b, Scalar const& tol);
+
+/** (t)olerance (lower)
+ * @returns true if a is less than b using tolerance
+ */
+	bool tlower(Scalar const& a, Scalar const& b, Scalar const& tol);
 }
 
 /// typdef to indicate index behavior/use of unsigned int
