@@ -86,7 +86,7 @@ public:
 	::std::string now() const
 	{
 		time_t t = time(0);   // get time now
-#ifdef WIN32
+#if defined(WIN32) && defined(_MSVC_VER)
 #pragma warning(disable:4996)
 #endif
 		struct tm * now = localtime( & t );
@@ -146,7 +146,7 @@ std::string stringify(size_t x)
   return o.str();
 }
 
-#ifdef WIN32
+#if defined(WIN32) && defined(_MSVC_VER)
 #pragma warning(disable:4996)
 #endif
 
