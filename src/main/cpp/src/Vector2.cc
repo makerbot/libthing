@@ -65,6 +65,10 @@ Vector2 Vector2::operator*(const Scalar value) const
 	return Vector2(x*value, y*value);
 }
 
+bool Vector2::operator==(const Vector2 &v) const {
+	return x == v.x && y == v.y;
+}
+
 /// tolerance equals of this vector vs pased vector p
 bool Vector2::tequals(const Vector2 &p, const Scalar tol) const
 {

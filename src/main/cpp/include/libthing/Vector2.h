@@ -38,6 +38,8 @@ public:
 
     Vector2 operator*(const Scalar value) const;
 
+	bool operator==(const Vector2& v) const;
+
     /// tolerance equals of this vector vs pased vector p
 	bool tequals(const Vector2 &p, const Scalar tol) const;
 
