@@ -17,14 +17,11 @@ libthing_cc = [ CPPATH+'Scalar.cc',
 				CPPATH+'Vector3.cc',
 				CPPATH+'Triangle3.cc',
 				CPPATH+"LineSegment2.cc",
-				CPPATH+"Mesh.cc",
-				CPPATH+'StlReader.cc',
-				CPPATH+'StlWriter.cc',
 				CPPATH+'BoundingBox.cc',
 				CPPATH+'Formatter.cpp',
 				CPPATH+'AsciiStlFormatter.cpp',
 				CPPATH+'BinaryStlFormatter.cpp',
-				CPPATH+'ObjFormatter.cpp',
+				CPPATH+'ObjFormatter.cpp'
 ]
 
 

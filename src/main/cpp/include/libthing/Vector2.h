@@ -5,7 +5,7 @@
 #include <cmath>
 
 #include "libthing/Scalar.h"
-#include "libthing/Exception.h"
+#include "Exception.h"
 
 namespace libthing
 {

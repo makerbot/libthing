@@ -2,7 +2,7 @@
 #define VECTOR3_H_ (1)
 
 #include "libthing/Scalar.h"
-#include "libthing/Exception.h"
+#include "Exception.h"
 
 namespace libthing {
 /// your basic XYZ vector table
