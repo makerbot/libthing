@@ -65,6 +65,7 @@ public:
      * @returns the dotProduct of this Vector2
      */
     Scalar dotProduct(const Vector2 &vector) const;
+	Scalar crossProduct(const Vector2 &vector) const;
     //@returns an angle from 2 passed vectors
     // as 2 rays based at 0,0 in radians
     Scalar angleFromVector2s(const Vector2 &a, const Vector2 &b) const;
