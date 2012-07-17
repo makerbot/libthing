@@ -8,18 +8,16 @@ using namespace std;
 
 //#include "log.h"
 
-LineSegment2::LineSegment2(){}
+LineSegment2::LineSegment2() {}
 
 LineSegment2::LineSegment2(const LineSegment2& other)
-	:a(other.a), b(other.b){}
+		: a(other.a), b(other.b) {}
 
 LineSegment2::LineSegment2(const Vector2 &a, const Vector2 &b)
-	:a(a), b(b){}
+		: a(a), b(b) {}
 
-LineSegment2 & LineSegment2::operator= (const LineSegment2 & other)
-{
-	if (this != &other)
-	{
+LineSegment2 & LineSegment2::operator=(const LineSegment2 & other) {
+	if (this != &other) {
 		a = other.a;
 		b = other.b;
 
@@ -27,25 +25,21 @@ LineSegment2 & LineSegment2::operator= (const LineSegment2 & other)
 	return *this;
 }
 
-Scalar LineSegment2::squaredLength() const
-{
-	Vector2 l = b-a;
+Scalar LineSegment2::squaredLength() const {
+	Vector2 l = b - a;
 	return l.squaredMagnitude();
 }
 
-Scalar LineSegment2::length() const
-{
+Scalar LineSegment2::length() const {
 	Scalar l = squaredLength();
 	l = sqrt(l);
 	return l;
 }
 
-
 /**
  * @returns a new LineSegment2, elongated to be normalized to a unit vector
  */
-LineSegment2 LineSegment2::elongate(const Scalar& dist)  const
-{
+LineSegment2 LineSegment2::elongate(const Scalar& dist) const {
 	LineSegment2 segment(*this);
 	Vector2 l = segment.b - segment.a;
 	l.normalise();
@@ -57,8 +51,7 @@ LineSegment2 LineSegment2::elongate(const Scalar& dist)  const
 /**
  * @returns a new line segment. Of what, I don't know. Wasn't documented.
  */
-LineSegment2 LineSegment2::prelongate(const Scalar& dist)  const
-{
+LineSegment2 LineSegment2::prelongate(const Scalar& dist) const {
 	LineSegment2 segment(*this);
 	Vector2 l = segment.a - segment.b;
 	l.normalise();
@@ -67,9 +60,8 @@ LineSegment2 LineSegment2::prelongate(const Scalar& dist)  const
 	return segment;
 }
 
-
-std::ostream& libthing::operator << (std::ostream &os, const LineSegment2 &s)
-{
+std::ostream& libthing::operator <<(std::ostream &os,
+		const LineSegment2& /*s*/) {
 	//os << "[ " << s.a << ", " << s.b << "]";
 	return os;
 }
