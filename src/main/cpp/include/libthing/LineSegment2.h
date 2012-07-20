@@ -38,6 +38,8 @@ public:
 
 	LineSegment2 elongate(const Scalar& dist) const;
 	LineSegment2 prelongate(const Scalar& dist) const;
+	
+	bool intersects(const libthing::LineSegment2& rhs) const;
 
 };
 
@@ -49,7 +51,10 @@ typedef std::vector<SegmentTable> Insets;
 
 std::ostream& operator << (std::ostream &os, const libthing::LineSegment2 &s);
 
-bool collinear(const libthing::LineSegment2 &prev, const libthing::LineSegment2 &current, Scalar tol, Vector2 &mid);
+bool collinear(const libthing::LineSegment2 &prev, 
+		const libthing::LineSegment2 &current, Scalar tol, Vector2 &mid);
+bool intersects(const libthing::LineSegment2& lhs, 
+		const libthing::LineSegment2& rhs);
 
 typedef std::vector< std::vector<libthing::LineSegment2 > > SegmentVector;
 

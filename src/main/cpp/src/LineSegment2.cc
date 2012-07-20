@@ -6,6 +6,10 @@
 using namespace libthing;
 using namespace std;
 
+#ifndef SIGN
+#define SIGN(x) ((x)>=0 ?  1  :  -1)
+#endif
+
 //#include "log.h"
 
 LineSegment2::LineSegment2() {}
@@ -60,10 +64,25 @@ LineSegment2 LineSegment2::prelongate(const Scalar& dist) const {
 	return segment;
 }
 
+bool LineSegment2::intersects(const libthing::LineSegment2& rhs) const {
+	return ::intersects(*this, rhs);
+}
+
 std::ostream& libthing::operator <<(std::ostream &os,
 		const LineSegment2& /*s*/) {
 	//os << "[ " << s.a << ", " << s.b << "]";
 	return os;
+}
+
+bool libthing::intersects(const libthing::LineSegment2& lhs, 
+		const libthing::LineSegment2& rhs) {
+	libthing::Vector2 lhsvec = lhs.b - lhs.a;
+	libthing::Vector2 rhsvec = rhs.b - rhs.a;
+	
+	return SIGN((rhs.b - lhs.a).crossProduct(lhsvec)) != 
+			SIGN((rhs.a - lhs.a).crossProduct(lhsvec)) && 
+			SIGN((lhs.b - rhs.a).crossProduct(rhsvec)) != 
+			SIGN((lhs.a - rhs.a).crossProduct(rhsvec));
 }
 
 //void dumpSegments(const char* prefix, const std::vector<LineSegment2> &segments)
