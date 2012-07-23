@@ -93,9 +93,10 @@ Scalar Vector2::squaredMagnitude() const {
 void Vector2::normalise() {
 	Scalar l = magnitude();
 	if (l > 0) {
-		(*this) *= ((Scalar) 1) / l;
+		(*this) *= Scalar(1) / l;
 	} else {
-		assert(0);
+		Exception mixup("Attempting to normalize Vector2 of 0 length");
+		throw mixup;
 	}
 }
 
